@@ -1,0 +1,18 @@
+.user-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.icon-link {
+    color: #fff;
+    font-size: 1.3em;
+    margin-left: 25px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+    color: #d4af37;
+}
