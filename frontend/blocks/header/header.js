@@ -8,13 +8,16 @@ class SushiHeader extends HTMLElement {
             fetch('/frontend/blocks/header/header.css').then(response => response.text())
         ]).then(([html, css]) => {
             this.shadowRoot.innerHTML = `
-                <style>${css}</style>
+                <style>
+                    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+                    ${css}
+                </style>
                 ${html}
             `;
-        }).catch(error => {
-            console.error('Error:', error);
-        });
+            this.shadowRoot.querySelector('.header__toggle').addEventListener('click', () => {
+                document.dispatchEvent(new CustomEvent('toggleMobileMenu'));
+            });
+        }).catch(error => console.error('Error:', error));
     }
 }
-
 customElements.define('sushi-header', SushiHeader);

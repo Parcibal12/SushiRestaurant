@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Qitchen</title>
+    
+    <link rel="stylesheet" href="contact.css">
+    
+    <script type="module" src="/frontend/blocks/header/header.js"></script>
+    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="page-container">
+
+        <aside class="page-banner">
+            <sushi-header></sushi-header>
+            <user-actions></user-actions>
+            <h1 class="page-banner__title">Contact</h1>
+        </aside>
+
+        <main class="page-content">
+            
+            <div class="contact-row">
+                <article class="info-card opening-hours">
+                    <h2 class="decorated-title">Opening Hours</h2>
+                    <ul class="hours-list">
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Monday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Tuesday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Wednesday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Thursday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Friday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                        <li class="hours-list__item">
+                            <span class="hours-list__day">Saturday & Sunday</span>
+                            <span class="hours-list__divider"></span>
+                            <span class="hours-list__time">16:00 - 22:30</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <section class="gallery-card">
+                    <div class="gallery-card__photo" id="gallery-photo-1"></div>
+                    <div class="gallery-card__photo" id="gallery-photo-2"></div>
+                    <div class="gallery-card__photo" id="gallery-photo-3"></div>
+                    <div class="gallery-card__photo" id="gallery-photo-4"></div>
+                </section>
+            </div>
+
+            <div class="contact-row">
+                <section class="map-card">
+                    <a href="#" class="map-card__button">
+                        Show Route
+                        <span class="map-card__arrow">→</span>
+                    </a>
+                </section>
+
+                <article class="info-card get-in-touch">
+                    <h2 class="decorated-title">Get in touch</h2>
+                    <ul class="contact-list">
+                        <li class="contact-list__item">
+                            <span class="contact-list__label">Address</span>
+                            <span class="contact-list__value">23 Greenfield Avenue,<br>Prague 120 00</span>
+                        </li>
+                        <li class="contact-list__item">
+                            <span class="contact-list__label">Phone</span>
+                            <span class="contact-list__value">+49 1234 567890</span>
+                        </li>
+                        <li class="contact-list__item">
+                            <span class="contact-list__label">Email</span>
+                            <span class="contact-list__value">email@example.com</span>
+                        </li>
+                         <li class="contact-list__item">
+                            <span class="contact-list__label">Follow</span>
+                            <div class="contact-list__socials">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+
+        </main>
+    </div>
+    
+    <mobile-nav></mobile-nav>
+</body>
+</html>

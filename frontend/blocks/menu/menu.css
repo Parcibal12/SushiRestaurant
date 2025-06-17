@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=ABeeZee&family=Actor&display=swap');
+
+:root {
+    --color-background: #0A0B0A;
+    --color-text: #EFE7D2;
+    --color-text-secondary: rgba(245, 242, 234, 0.70);
+    --color-border: rgba(239, 231, 210, 0.15);
+    --color-button-active-bg: #EFE7D2;
+    --color-button-active-text: #0F1111;
+    
+    --font-heading: 'Forum', serif;
+    --font-body: 'Actor', sans-serif;
+    --font-alt: 'ABeeZee', sans-serif;
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    overflow: hidden;
+}
+
+.page-container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "header content"
+        "banner content";
+}
+
+.page-banner {
+    grid-area: banner;
+    background: url('/assets/menu/Image(1).png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+    position: relative;
+}
+
+sushi-header {
+    position: absolute;
+    top: 48px;
+    left: 48px;
+}
+user-actions {
+    position: absolute;
+    top: 48px;
+    right: 48px;
+}
+
+.page-banner__title {
+    font-family: var(--font-heading);
+    font-size: clamp(60px, 10vw, 112px);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.page-content {
+    grid-area: content;
+    padding: 80px 96px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+
+.menu-filters {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.menu-filters__button {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: var(--font-alt);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-filters__button--active,
+.menu-filters__button:hover {
+    background-color: var(--color-button-active-bg);
+    color: var(--color-button-active-text);
+    border-color: #333330;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+}
+
+.menu-category {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.menu-category__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.menu-category__title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu-category__decorator {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--color-border);
+}
+
+.menu-category__items {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.menu-item__image {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.menu-item__info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-item__header {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.menu-item__name {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.menu-item__divider {
+    flex-grow: 1;
+    height: 1px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 6px;
+}
+
+.menu-item__price {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.menu-item__description {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+
+
+.icon-link i {
+    font-family: "Font Awesome 6 Free"; 
+
+    font-weight: 900; 
+}

@@ -1,18 +1,20 @@
 .user-actions {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    gap: 8px;
     padding: 15px 30px;
 }
 
-.icon-link {
-    color: #fff;
-    font-size: 1.3em;
-    margin-left: 25px;
-    text-decoration: none;
-    transition: color 0.3s ease;
+.user-actions__link {
+    display: block;
+    line-height: 0;
+    transition: transform 0.2s ease;
 }
 
-.icon-link:hover {
-    color: #d4af37;
+.user-actions__icon {
+    width: 48px;
+    height: 48px;
+}
+
+.user-actions__link:hover {
+    transform: scale(1.05);
 }

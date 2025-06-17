@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Qitchen</title>
+    
+    <link rel="stylesheet" href="blog.css">
+    
+    <script type="module" src="/frontend/blocks/header/header.js"></script>
+    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+</head>
+<body>
+
+    <div class="page-container">
+
+        <aside class="page-banner">
+            <sushi-header></sushi-header>
+            <user-actions></user-actions>
+            <h1 class="page-banner__title">Blog</h1>
+        </aside>
+
+        <main class="page-content">
+
+            <header class="blog-header">
+                <span class="blog-header__decorator"></span>
+                <h2 class="blog-header__title">Behind the Scenes<br>& Latest News</h2>
+                <span class="blog-header__decorator"></span>
+            </header>
+
+            <nav class="blog-filters">
+                <a href="#" class="blog-filters__link blog-filters__link--active">All News</a>
+                <a href="#" class="blog-filters__link">Favorites</a>
+                <a href="#" class="blog-filters__link">My Articles</a>
+            </nav>
+
+            <div class="post-list">
+                <article class="post-card">
+                    <a href="#" class="post-card__image-link">
+                        <img src="/assets/blog/blog1.png" alt="Descripción de la imagen del post" class="post-card__image">
+                    </a>
+                    <div class="post-card__info">
+                        <div class="post-card__meta">24th Aug 2023</div>
+                        <h3 class="post-card__title"><a href="#">How Qitchen Redefines Flavor Harmony in Every Bite</a></h3>
+                        <p class="post-card__excerpt">Experience an orchestra of tastes as Qitchen's sushi unveils a symphony of perfectly balanced flavors.</p>
+                        <p class="post-card__author">Author: Name</p>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <a href="#" class="post-card__image-link">
+                        <img src="/assets/blog/blog2.png" alt="Descripción de la imagen del post" class="post-card__image">
+                    </a>
+                    <div class="post-card__info">
+                        <div class="post-card__meta">24th Aug 2023</div>
+                        <h3 class="post-card__title"><a href="#">Unveiling the Mastery Behind Our Culinary Craftsmanship</a></h3>
+                        <p class="post-card__excerpt">Explore the meticulous artistry and dedication that create Qitchen's renowned sushi perfection.</p>
+                        <p class="post-card__author">Author: Name</p>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <a href="#" class="post-card__image-link">
+                        <img src="/assets/blog/blog3.png" alt="Descripción de la imagen del post" class="post-card__image">
+                    </a>
+                    <div class="post-card__info">
+                        <div class="post-card__meta">24th Aug 2023</div>
+                        <h3 class="post-card__title"><a href="#">Journey through Freshness Exquisite Sushi Selection</a></h3>
+                        <p class="post-card__excerpt">Embark on a seafood adventure, guided by Qitchen's fresh and exquisite sushi creations from the sea.</p>
+                        <p class="post-card__author">Author: Name</p>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <a href="#" class="post-card__image-link">
+                        <img src="/assets/blog/blog4.png" alt="Descripción de la imagen del post" class="post-card__image">
+                    </a>
+                    <div class="post-card__info">
+                        <div class="post-card__meta">24th Aug 2023</div>
+                        <h3 class="post-card__title"><a href="#">Palate with Qitchen's Unsurpassed Sushi Delicacies</a></h3>
+                        <p class="post-card__excerpt">Discover the heights of gastronomic delight as Qitchen's sushi transports you to a new culinary realm.</p>
+                        <p class="post-card__author">Author: Name</p>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <a href="#" class="post-card__image-link">
+                        <img src="/assets/blog/blog5.png" alt="Descripción de la imagen del post" class="post-card__image">
+                    </a>
+                    <div class="post-card__info">
+                        <div class="post-card__meta">24th Aug 2023</div>
+                        <h3 class="post-card__title"><a href="#">The Qitchen Experience Beyond Sushi</a></h3>
+                        <p class="post-card__excerpt">Immerse in Qitchen's passion for culinary excellence, where sushi is more than a dish—it's an experience.</p>
+                        <p class="post-card__author">Author: Name</p>
+                    </div>
+                </article>
+                
+                </div>
+        </main>
+    </div>
+    
+    <mobile-nav></mobile-nav>
+</body>
+</html>
