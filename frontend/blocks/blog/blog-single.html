@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - Qitchen</title>
+    
+    <link rel="stylesheet" href="blog-single.css">
+    
+    <script type="module" src="/frontend/blocks/header/header.js"></script>
+    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+</head>
+<body>
+
+    <div class="page-container">
+
+        <aside class="page-banner">
+            <img id="post-banner-image" src="" alt="Banner del post" class="page-banner__image">
+            <sushi-header></sushi-header>
+            <user-actions></user-actions>
+        </aside>
+
+        <main class="page-content">
+            
+            <article class="blog-post">
+                <header class="blog-post__header">
+                    <div class="post-meta">
+                        <span class="post-meta__decorator"></span>
+                        <time id="post-date" class="post-meta__date" datetime=""></time>
+                        <span class="post-meta__decorator"></span>
+                    </div>
+                    <h1 id="post-title" class="blog-post__title"></h1>
+                    <div class="post-meta__decorator--bottom"></div>
+                </header>
+
+                <div id="post-body" class="blog-post__body">
+                    </div>
+
+                <footer class="blog-post__footer">
+                    <p id="post-author" class="author-name"></p>
+                </footer>
+            </article>
+
+        </main>
+    </div>
+    
+    <mobile-nav></mobile-nav>
+    <script type="module" src="blog-single.js" defer></script>
+</body>
+</html>

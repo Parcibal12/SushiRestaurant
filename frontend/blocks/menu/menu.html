@@ -25,14 +25,14 @@
         <main class="page-content">
 
             <div class="menu-filters">
-                <button class="menu-filters__button menu-filters__button--active">All</button>
-                <button class="menu-filters__button">Maki</button>
-                <button class="menu-filters__button">UraMaki</button>
-                <button class="menu-filters__button">Special Rolls</button>
+                <button class="menu-filters__button menu-filters__button--active" data-filter="all">All</button>
+                <button class="menu-filters__button" data-filter="maki">Maki</button>
+                <button class="menu-filters__button" data-filter="uramaki">UraMaki</button>
+                <button class="menu-filters__button" data-filter="special-rolls">Special Rolls</button>
             </div>
 
             <div class="menu-list">
-                <section class="menu-category">
+                <section class="menu-category" data-category="maki">
                     <div class="menu-category__header">
                         <span class="menu-category__decorator"></span>
                         <h2 class="menu-category__title">Maki</h2>
@@ -40,7 +40,7 @@
                     </div>
                     
                     <div class="menu-category__items">
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="maki">
                             <img class="menu-item__image" src="/assets/menu/comida1.png" alt="Spicy Tuna Maki">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -52,7 +52,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="maki">
                             <img class="menu-item__image" src="/assets/menu/comida2.png" alt="Mango Maki">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -64,7 +64,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="maki">
                             <img class="menu-item__image" src="/assets/menu/comida3.png" alt="Spicy Tuna Maki">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -76,7 +76,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="maki">
                             <img class="menu-item__image" src="/assets/menu/menu2.png" alt="Spicy Tuna Maki">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -90,7 +90,7 @@
                     </div>
                 </section>
 
-                <section class="menu-category">
+                <section class="menu-category" data-category="uramaki">
                     <div class="menu-category__header">
                         <span class="menu-category__decorator"></span>
                         <h2 class="menu-category__title">UraMaki</h2>
@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="menu-category__items">
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu3.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -110,7 +110,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu4.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -122,7 +122,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu5.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -134,7 +134,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu6.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -146,7 +146,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu7.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -158,7 +158,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu8.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -170,7 +170,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="uramaki">
                             <img class="menu-item__image" src="/assets/menu/menu9.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -184,7 +184,7 @@
                     </div>
                 </section>
 
-                <section class="menu-category">
+                <section class="menu-category" data-category="special-rolls">
                     <div class="menu-category__header">
                         <span class="menu-category__decorator"></span>
                         <h2 class="menu-category__title">Special Rolls</h2>
@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="menu-category__items">
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="special-rolls">
                             <img class="menu-item__image" src="/assets/menu/menu10.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -204,7 +204,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="special-rolls">
                             <img class="menu-item__image" src="/assets/menu/menu11.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -216,7 +216,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="special-rolls">
                             <img class="menu-item__image" src="/assets/menu/menu12.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -228,7 +228,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="special-rolls">
                             <img class="menu-item__image" src="/assets/menu/menu13.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -240,7 +240,7 @@
                             </div>
                         </article>
 
-                        <article class="menu-item">
+                        <article class="menu-item" data-category="special-rolls">
                             <img class="menu-item__image" src="/assets/menu/menu14.png" alt="Volcano Delight">
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
@@ -255,7 +255,7 @@
                 </div>
         </main>
     </div>
-
+    <script src="menu.js" defer></script>
 </body>
 <mobile-nav></mobile-nav> </body>
 </html>

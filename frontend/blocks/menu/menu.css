@@ -204,3 +204,20 @@ user-actions {
 
     font-weight: 900; 
 }
+
+
+.menu-item.hidden {
+    display: none;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.menu-item.hiding {
+    opacity: 0;
+    transform: scale(0.95);
+}
