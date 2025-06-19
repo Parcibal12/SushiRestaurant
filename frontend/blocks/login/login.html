@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Qitchen</title>
+    
+    <link rel="stylesheet" href="auth.css"> 
+    
+    <script type="module" src="/frontend/blocks/header/header.js"></script>
+    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+</head>
+<body>
+
+    <div class="page-container">
+
+        <aside class="page-banner">
+            <sushi-header></sushi-header>
+            <user-actions></user-actions>
+            <h1 class="page-banner__title">Login</h1>
+        </aside>
+
+        <main class="page-content">
+            
+            <div class="auth-card">
+                <header class="auth-card__header">
+                    <span class="auth-card__decorator"></span>
+                    <h2 class="auth-card__title">Login</h2>
+                    <span class="auth-card__decorator"></span>
+                </header>
+
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="email" class="form-group__label sr-only">Email</label>
+                        <input type="email" id="email" name="email" class="form-group__input" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-group__label sr-only">Password</label>
+                        <input type="password" id="password" name="password" class="form-group__input" placeholder="Password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-form__button">Login</button>
+                </form>
+
+                <p class="auth-card__switch">
+                    <a href="register.html">Ir a registro en su lugar</a>
+                </p>
+            </div>
+
+        </main>
+    </div>
+    
+    <mobile-nav></mobile-nav>
+    </body>
+</html>
