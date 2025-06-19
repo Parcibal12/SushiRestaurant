@@ -144,6 +144,10 @@ user-actions {
     display: flex;
     align-items: center;
     gap: 24px;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+
+    text-decoration: none;
+    color: inherit;
 }
 
 .menu-item__image {
