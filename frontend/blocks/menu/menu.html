@@ -9,7 +9,8 @@
     
     <script type="module" src="/frontend/blocks/header/header.js"></script>
     <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
-    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -40,8 +41,13 @@
                     </div>
                     
                     <div class="menu-category__items">
-                        <a href="menu.html?item=spicy-tuna-maki" class="menu-item" data-category="maki">
-                            <img class="menu-item__image" src="/assets/menu/comida1.png" alt="Spicy Tuna Maki">
+                        <a href="menu.html?item=spicy-tuna-maki" class="menu-item" data-category="maki" data-id="spicy-tuna-maki">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/comida1.png" alt="Spicy Tuna Maki">
+                                <button class="menu-item__add-btn" data-id="spicy-tuna-maki" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Spicy Tuna Maki</h3>
@@ -52,8 +58,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=mango-maki" class="menu-item" data-category="maki">
-                            <img class="menu-item__image" src="/assets/menu/comida2.png" alt="Mango Maki">
+                        <a href="menu.html?item=mango-maki" class="menu-item" data-category="maki" data-id="mango-maki">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/comida2.png" alt="Mango Maki">
+                                <button class="menu-item__add-btn" data-id="mango-maki" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Mango Maki</h3>
@@ -64,8 +75,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=salmon-maki" class="menu-item" data-category="maki">
-                            <img class="menu-item__image" src="/assets/menu/comida3.png" alt="Salmon Maki">
+                        <a href="menu.html?item=salmon-maki" class="menu-item" data-category="maki" data-id="salmon-maki">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/comida3.png" alt="Salmon Maki">
+                                <button class="menu-item__add-btn" data-id="salmon-maki" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Salmon Maki</h3>
@@ -76,8 +92,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=tuna-maki" class="menu-item" data-category="maki">
-                            <img class="menu-item__image" src="/assets/menu/menu2.png" alt="Tuna Maki">
+                        <a href="menu.html?item=tuna-maki" class="menu-item" data-category="maki" data-id="tuna-maki">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu2.png" alt="Tuna Maki">
+                                <button class="menu-item__add-btn" data-id="tuna-maki" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Tuna Maki</h3>
@@ -98,8 +119,13 @@
                     </div>
 
                     <div class="menu-category__items">
-                        <a href="menu.html?item=volcano-delight" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu3.png" alt="Volcano Delight">
+                        <a href="menu.html?item=volcano-delight" class="menu-item" data-category="uramaki" data-id="volcano-delight">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu3.png" alt="Volcano Delight">
+                                <button class="menu-item__add-btn" data-id="volcano-delight" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Volcano Delight</h3>
@@ -110,8 +136,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=rainbow-fusion" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu4.png" alt="Rainbow Fusion">
+                        <a href="menu.html?item=rainbow-fusion" class="menu-item" data-category="uramaki" data-id="rainbow-fusion">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu4.png" alt="Rainbow Fusion">
+                                <button class="menu-item__add-btn" data-id="rainbow-fusion" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Rainbow Fusion</h3>
@@ -122,8 +153,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=dragon-elegance" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu5.png" alt="Volcano Delight">
+                        <a href="menu.html?item=dragon-elegance" class="menu-item" data-category="uramaki" data-id="dragon-elegance">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu5.png" alt="Dragon Elegance">
+                                <button class="menu-item__add-btn" data-id="dragon-elegance" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Dragon Elegance</h3>
@@ -134,8 +170,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=sunset-serenity" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu6.png" alt="Volcano Delight">
+                        <a href="menu.html?item=sunset-serenity" class="menu-item" data-category="uramaki" data-id="sunset-serenity">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu6.png" alt="Sunset Serenity">
+                                <button class="menu-item__add-btn" data-id="sunset-serenity" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Sunset Serenity</h3>
@@ -146,8 +187,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=mystic-garden" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu7.png" alt="Volcano Delight">
+                        <a href="menu.html?item=mystic-garden" class="menu-item" data-category="uramaki" data-id="mystic-garden">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu7.png" alt="Mystic Garden">
+                                <button class="menu-item__add-btn" data-id="mystic-garden" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Mystic Garden</h3>
@@ -158,8 +204,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=ocean-breeze" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu8.png" alt="Volcano Delight">
+                        <a href="menu.html?item=ocean-breeze" class="menu-item" data-category="uramaki" data-id="ocean-breeze">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu8.png" alt="Ocean Breeze">
+                                <button class="menu-item__add-btn" data-id="ocean-breeze" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Ocean Breeze</h3>
@@ -170,8 +221,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=tokyo-blossom" class="menu-item" data-category="uramaki">
-                            <img class="menu-item__image" src="/assets/menu/menu9.png" alt="Volcano Delight">
+                        <a href="menu.html?item=tokyo-blossom" class="menu-item" data-category="uramaki" data-id="tokyo-blossom">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu9.png" alt="Tokyo Blossom">
+                                <button class="menu-item__add-btn" data-id="tokyo-blossom" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Tokyo Blossom</h3>
@@ -192,8 +248,13 @@
                     </div>
 
                     <div class="menu-category__items">
-                        <a href="menu.html?item=sunrise-bliss" class="menu-item" data-category="special-rolls">
-                            <img class="menu-item__image" src="/assets/menu/menu10.png" alt="Sunrise Bliss">
+                        <a href="menu.html?item=sunrise-bliss" class="menu-item" data-category="special-rolls" data-id="sunrise-bliss">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu10.png" alt="Sunrise Bliss">
+                                <button class="menu-item__add-btn" data-id="sunrise-bliss" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                <div class="menu-item__header">
                                     <h3 class="menu-item__name">Sunrise Bliss</h3>
@@ -204,8 +265,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=mango-tango-fusion" class="menu-item" data-category="special-rolls">
-                            <img class="menu-item__image" src="/assets/menu/menu11.png" alt="Volcano Delight">
+                        <a href="menu.html?item=mango-tango-fusion" class="menu-item" data-category="special-rolls" data-id="mango-tango-fusion">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu11.png" alt="Mango Tango Fusion">
+                                <button class="menu-item__add-btn" data-id="mango-tango-fusion" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Mango Tango Fusion</h3>
@@ -216,8 +282,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=truffle-indulgence" class="menu-item" data-category="special-rolls">
-                            <img class="menu-item__image" src="/assets/menu/menu12.png" alt="Volcano Delight">
+                        <a href="menu.html?item=truffle-indulgence" class="menu-item" data-category="special-rolls" data-id="truffle-indulgence">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu12.png" alt="Truffle Indulgence">
+                                <button class="menu-item__add-btn" data-id="truffle-indulgence" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Truffle Indulgence</h3>
@@ -228,8 +299,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=pacific-firecracker" class="menu-item" data-category="special-rolls">
-                            <img class="menu-item__image" src="/assets/menu/menu13.png" alt="Volcano Delight">
+                        <a href="menu.html?item=pacific-firecracker" class="menu-item" data-category="special-rolls" data-id="pacific-firecracker">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu13.png" alt="Pacific Firecracker">
+                                <button class="menu-item__add-btn" data-id="pacific-firecracker" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Pacific Firecracker</h3>
@@ -240,8 +316,13 @@
                             </div>
                         </a>
 
-                        <a href="menu.html?item=eternal-eel-enchantment" class="menu-item" data-category="special-rolls">
-                            <img class="menu-item__image" src="/assets/menu/menu14.png" alt="Volcano Delight">
+                        <a href="menu.html?item=eternal-eel-enchantment" class="menu-item" data-category="special-rolls" data-id="eternal-eel-enchantment">
+                            <div class="menu-item__visual-wrapper">
+                                <img class="menu-item__image" src="/assets/menu/menu14.png" alt="Eternal Eel Enchantment">
+                                <button class="menu-item__add-btn" data-id="eternal-eel-enchantment" aria-label="Añadir al carrito">
+                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
+                                </button>
+                            </div>
                             <div class="menu-item__info">
                                 <div class="menu-item__header">
                                     <h3 class="menu-item__name">Eternal Eel Enchantment</h3>
@@ -251,10 +332,12 @@
                                 <p class="menu-item__description">An enchanting blend of eel tempura, foie gras, and cucumber, elegantly layered with truffle oil and gold leaf for a touch of opulence.</p>
                             </div>
                         </a>
-                
-                </div>
+                    </div>
+                </section>
+            </div>
         </main>
-    </div> <mobile-nav></mobile-nav>
+    </div>
+    <mobile-nav></mobile-nav>
     <script type="module" src="menu.js" defer></script>
 </body>
 </html>

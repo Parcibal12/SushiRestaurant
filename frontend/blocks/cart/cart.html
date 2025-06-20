@@ -23,33 +23,20 @@
                 <h2 class="decorated-title">My Cart</h2>
 
                 <div class="cart-items-list">
-                    
-                    <article class="cart-item">
-                        <img class="cart-item__image" src="/assets/menu/comida1.png" alt="Spicy Tuna Maki">
-                        <div class="cart-item__details">
-                            <h3 class="cart-item__name">Spicy Tuna Maki</h3>
-                            <p class="cart-item__description">A tantalizing blend of spicy tuna, cucumber, and avocado.</p>
-                        </div>
-                        <div class="cart-item__quantity">
-                            <input type="number" value="10" min="1" class="quantity-input">
-                        </div>
-                        <div class="cart-item__price">$50</div>
-                        <button class="cart-item__remove-btn" aria-label="Remove item">×</button>
-                    </article>
                     </div>
 
                 <footer class="cart-summary">
                     <div class="summary-row">
                         <span class="summary-row__label">Subtotal</span>
-                        <span class="summary-row__value">$50</span>
+                        <span class="summary-row__value">$0.00</span>
                     </div>
                     <div class="summary-row">
                         <span class="summary-row__label">Taxes & Fees</span>
-                        <span class="summary-row__value">$5</span>
+                        <span class="summary-row__value">$0.00</span>
                     </div>
                     <div class="summary-row summary-row--total">
                         <span class="summary-row__label">Total</span>
-                        <span class="summary-row__value">$55</span>
+                        <span class="summary-row__value">$0.00</span>
                     </div>
                     <button class="cart-summary__checkout-btn">Place Order</button>
                 </footer>
@@ -57,5 +44,7 @@
         </main>
     </div>
     <mobile-nav></mobile-nav>
+
+    <script type="module" src="cart-page.js" defer></script>
 </body>
 </html>
