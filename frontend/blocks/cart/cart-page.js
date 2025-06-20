@@ -43,6 +43,11 @@ function createCartItemElement(item) {
     const nameH3 = document.createElement('h3');
     nameH3.className = 'cart-item__name';
     nameH3.textContent = item.name;
+    
+
+    const descriptionP = document.createElement('p');
+    descriptionP.className = 'cart-item__description';
+    descriptionP.textContent = item.description;
 
     const quantityDiv = document.createElement('div');
     quantityDiv.className = 'cart-item__quantity';
@@ -78,6 +83,8 @@ function createCartItemElement(item) {
     });
 
     detailsDiv.appendChild(nameH3);
+    detailsDiv.appendChild(descriptionP); 
+    
     quantityDiv.appendChild(quantityInput);
     
     article.appendChild(image);

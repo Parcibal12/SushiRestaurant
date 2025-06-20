@@ -22,6 +22,7 @@ export function addToCart(itemId) {
                 name: product.name,
                 price: parseFloat(product.price.replace('$', '')),
                 image: product.image,
+                description: product.description,
                 quantity: 1
             });
         }
