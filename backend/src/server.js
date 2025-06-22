@@ -6,6 +6,8 @@ const { sequelize } = require('./models');
 const authRoutes = require('./routes/authRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
+const blogRoutes = require('./routes/blogRoutes.js');
+const reservationRoutes = require('./routes/reservationRoutes.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +22,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/blog', blogRoutes);
+app.use('/api/reservations', reservationRoutes);
 
 async function startServer() {
     try {
