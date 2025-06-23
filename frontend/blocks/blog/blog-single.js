@@ -1,47 +1,68 @@
-import { posts } from './blog-data.js';
+import { blogApi, authApi } from '../utils/api.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const requestedPostId = urlParams.get('id');
-    const postData = posts.find(p => p.id === requestedPostId);
+async function setupActions(post) {
+    console.log('Paso A: Entrando a la función setupActions. El post que se está viendo tiene authorId:', post.authorId);
 
-    if (postData) {
-        renderPost(postData);
-    } else {
-        renderError();
+    const token = localStorage.getItem('sushi_token');
+    if (!token) {
+        console.log('Paso B: Fallo. No se encontró ningún token en localStorage. El usuario no está logueado.');
+        return; 
+    }
+    console.log('Paso B: Token encontrado en localStorage. Procediendo...');
+
+    try {
+        console.log('Paso C: Intentando obtener el perfil del usuario desde la API...');
+        const currentUser = await authApi.getProfile();
+        console.log('Paso D: Perfil obtenido de la API. El ID del usuario actual es:', currentUser.id);
+
+        console.log(`Paso E: Comparando... ID de usuario actual (<span class="math-inline">\{currentUser\.id\}\) vs ID del autor del post \(</span>{post.authorId})`);
+
+        if (currentUser.id === post.authorId) {
+            console.log('Paso F: ¡ÉXITO! Los IDs coinciden. Se mostrarán los botones.');
+            const actionsContainer = document.getElementById('post-actions');
+            if (actionsContainer) {
+                actionsContainer.style.display = 'flex';
+            } else {
+                console.error('Error Crítico: No se encontró el div con id="post-actions" en el HTML.');
+            }
+        } else {
+            console.log('Paso F: FALLO. Los IDs no coinciden.');
+        }
+    } catch (error) {
+        console.error('Paso G: Ocurrió un error al verificar la autorización:', error.message);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const titleElement = document.getElementById('post-title');
+    const dateElement = document.getElementById('post-date');
+    const authorElement = document.getElementById('post-author');
+    const bodyElement = document.getElementById('post-body');
+    const bannerImageElement = document.getElementById('post-banner-image');
+    
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('id');
+
+    if (!postId) {
+        document.body.innerHTML = '<h1>Error: ID de post no encontrado.</h1>';
+        return;
+    }
+
+    try {
+        const post = await blogApi.getById(postId);
+
+        document.title = `${post.title} - Qitchen`;
+        if (bannerImageElement) bannerImageElement.src = post.imageUrl || '/assets/blog/blog-default.png';
+        if (titleElement) titleElement.textContent = post.title;
+        if (dateElement) dateElement.textContent = new Date(post.createdAt).toLocaleDateString('es-ES', { dateStyle: 'long' });
+        if (authorElement) authorElement.textContent = `Autor: ${post.author ? post.author.name : 'Anónimo'}`;
+        if (bodyElement) bodyElement.textContent = post.content;
+        
+        await setupActions(post);
+
+    } catch (error) {
+        console.error('Error al cargar el post:', error);
+        if (titleElement) titleElement.textContent = 'Post no encontrado...';
+        if (bodyElement) bodyElement.innerHTML = `<p>El artículo que estás buscando no existe o ha sido removido.</p>`;
     }
 });
-
-function renderPost(post) {
-    document.title = post.title + ' - Qitchen';
-    document.getElementById('post-banner-image').src = post.bannerImage;
-    document.getElementById('post-date').textContent = post.date;
-    document.getElementById('post-title').textContent = post.title;
-    document.getElementById('post-author').textContent = 'Author: ' + post.author;
-
-    const postBody = document.getElementById('post-body');
-    postBody.innerHTML = '';
-
-    post.content.forEach(sectionData => {
-        const section = document.createElement('section');
-        section.className = 'blog-post__section';
-
-        const subtitle = document.createElement('h2');
-        subtitle.className = 'blog-post__subtitle';
-        subtitle.textContent = sectionData.subtitle;
-        section.appendChild(subtitle);
-
-        sectionData.paragraphs.forEach(paragraphText => {
-            const paragraph = document.createElement('p');
-            paragraph.textContent = paragraphText;
-            section.appendChild(paragraph);
-        });
-
-        postBody.appendChild(section);
-    });
-}
-
-function renderError() {
-    document.getElementById('post-title').textContent = 'Post no encontrado...';
-    document.getElementById('post-body').innerHTML = '<p>El artículo que estás buscando no existe o ha sido removido.</p>';
-}

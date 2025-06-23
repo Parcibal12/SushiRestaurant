@@ -9,6 +9,11 @@ const BlogPost = sequelize.define('BlogPost', {
     content: {
         type: DataTypes.TEXT,
         allowNull: false
+    },
+
+    imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 });
 
