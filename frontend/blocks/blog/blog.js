@@ -10,33 +10,58 @@ document.addEventListener('DOMContentLoaded', () => {
         article.className = 'post-card';
         article.dataset.postId = post.id;
 
-        let actionsHtml = '';
-        if (isOwner) {
-            const trashIconUrl = '../../../assets/icons/trash.svg';
-            actionsHtml = `
-                <div class="post-card__actions">
-                    <button class="post-card__action-btn delete-btn" title="Eliminar Post">
-                        <img src="${trashIconUrl}" alt="Eliminar">
-                    </button>
-                </div>
-            `;
-        }
-        
-        const postDate = new Date(post.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
-        const defaultImage = '../../../assets/blog/blog-default.png';
+        const imageWrapper = document.createElement('div');
+        imageWrapper.className = 'post-card__image-wrapper';
 
-        article.innerHTML = `
-            <a href="/frontend/blocks/blog/blog-single.html?id=${post.id}" class="post-card__image-link">
-                ${actionsHtml}
-                <img src="${post.imageUrl || defaultImage}" alt="${post.title}" class="post-card__image">
-            </a>
-            <div class="post-card__info">
-                <div class="post-card__meta">${postDate}</div>
-                <h3 class="post-card__title"><a href="/frontend/blocks/blog/blog-single.html?id=${post.id}">${post.title}</a></h3>
-                <p class="post-card__excerpt">${post.content.substring(0, 100)}...</p>
-                <p class="post-card__author">Autor: ${post.author ? post.author.name : 'Anónimo'}</p>
-            </div>
+        if (isOwner) {
+            const actionsContainer = document.createElement('div');
+            actionsContainer.className = 'post-card__actions';
+
+            const editIconUrl = '../../../assets/icons/edit.svg';
+            const trashIconUrl = '../../../assets/icons/trash.svg';
+
+            const editLink = document.createElement('a');
+            editLink.href = `/frontend/blocks/blog/edit-post.html?id=${post.id}`;
+            editLink.className = 'post-card__action-btn edit-btn';
+            editLink.title = 'Editar Post';
+            editLink.innerHTML = `<img src="${editIconUrl}" alt="Editar">`;
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'post-card__action-btn delete-btn';
+            deleteButton.title = 'Eliminar Post';
+            deleteButton.innerHTML = `<img src="${trashIconUrl}" alt="Eliminar">`;
+
+            actionsContainer.appendChild(editLink);
+            actionsContainer.appendChild(deleteButton);
+            imageWrapper.appendChild(actionsContainer);
+        }
+
+        const imageLink = document.createElement('a');
+        imageLink.href = `/frontend/blocks/blog/blog-single.html?id=${post.id}`;
+        
+        const image = document.createElement('img');
+        image.className = 'post-card__image';
+        const defaultImage = '../../../assets/blog/blog-default.png'; 
+        image.src = post.imageUrl || defaultImage;
+        image.alt = post.title;
+
+        imageLink.appendChild(image);
+        imageWrapper.appendChild(imageLink);
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'post-card__info';
+        const postDate = new Date(post.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+        
+        infoDiv.innerHTML = `
+            <div class="post-card__meta">${postDate}</div>
+            <h3 class="post-card__title"><a href="/frontend/blocks/blog/blog-single.html?id=${post.id}">${post.title}</a></h3>
+            <p class="post-card__excerpt">${post.content.substring(0, 100)}...</p>
+            <p class="post-card__author">Autor: ${post.author ? post.author.name : 'Anónimo'}</p>
         `;
+
+        article.appendChild(imageWrapper);
+        article.appendChild(infoDiv);
+
         return article;
     }
 
@@ -57,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return article;
     }
 
-    // --- Lógica principal ---
 
     const renderPosts = (posts, filterType) => {
         postListContainer.innerHTML = '';
@@ -77,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleFilterClick = async (e) => {
         e.preventDefault();
         const filter = e.target.dataset.filter;
-        
         filterLinks.forEach(l => l.classList.remove('blog-filters__link--active'));
         e.target.classList.add('blog-filters__link--active');
 
@@ -88,27 +111,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (filter === 'all') {
             endpoint = '/blog';
         } else if (filter === 'my-articles') {
-            if (!token) return alert('Debes iniciar sesión para ver tus artículos.');
+            if (!token) return alert('Debes iniciar sesión.');
             endpoint = '/blog/my-posts';
         } else {
-            alert('Funcionalidad no implementada.');
             renderPosts([], filter);
             return;
         }
 
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, { headers });
-            if (!response.ok) throw new Error('Error al cargar los datos.');
+            if (!response.ok) throw new Error('Error al cargar datos.');
             const posts = await response.json();
             renderPosts(posts, filter);
         } catch (error) {
-            console.error('Error en el filtro:', error);
+            console.error(error);
         }
     };
 
     postListContainer.addEventListener('click', async (event) => {
         const deleteButton = event.target.closest('.delete-btn');
         if (deleteButton) {
+            event.stopPropagation();
+            event.preventDefault();
             const postCard = deleteButton.closest('.post-card');
             const postId = postCard.dataset.postId;
             const token = localStorage.getItem('sushi_token');
@@ -132,9 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('sushi_token');
         if (token) {
             try {
-                const response = await fetch(`${API_BASE_URL}/auth/profile`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                const response = await fetch(`${API_BASE_URL}/auth/profile`, { headers: { 'Authorization': `Bearer ${token}` } });
                 if (response.ok) currentUser = await response.json();
             } catch (e) { currentUser = null; }
         }

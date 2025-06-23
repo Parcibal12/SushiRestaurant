@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const { sequelize } = require('./models');
 
@@ -24,6 +25,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/reservations', reservationRoutes);
+
+
 
 async function startServer() {
     try {

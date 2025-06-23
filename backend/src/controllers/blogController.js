@@ -1,4 +1,5 @@
 const { BlogPost, User } = require('../models');
+const supabase = require('../config/supabase');
 
 exports.getAllPosts = async (req, res) => {
     try {
@@ -31,9 +32,44 @@ exports.createPost = async (req, res) => {
     const authorId = req.user.id;
 
     try {
-        const newPost = await BlogPost.create({ title, content, authorId });
+        const existingPost = await BlogPost.findOne({ where: { title } });
+        if (existingPost) {
+            return res.status(400).json({ message: 'Ya existe una publicación con ese título.' });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({ message: 'La imagen de portada es requerida.' });
+        }
+
+        const file = req.file;
+        const fileName = `${Date.now()}-${file.originalname}`;
+        
+        // Lógica para subir la imagen a Supabase
+        const { error: uploadError } = await supabase.storage
+            .from('blog-images') 
+            .upload(fileName, file.buffer, {
+                contentType: file.mimetype,
+            });
+
+        if (uploadError) {
+            throw new Error(`Error al subir la imagen a Supabase: ${uploadError.message}`);
+        }
+        
+        const { data: publicUrlData } = supabase.storage
+            .from('blog-images')
+            .getPublicUrl(fileName);
+
+        const newPost = await BlogPost.create({
+            title,
+            content,
+            authorId,
+            imageUrl: publicUrlData.publicUrl
+        });
+        
         res.status(201).json(newPost);
+
     } catch (error) {
+        console.error("ERROR DETALLADO EN BACKEND:", error);
         res.status(400).json({ message: 'Error al crear la publicación.', error: error.message });
     }
 };
@@ -66,7 +102,6 @@ exports.updatePost = async (req, res) => {
     }
 };
 
-
 exports.deletePost = async (req, res) => {
     try {
         const postId = req.params.id;
@@ -89,7 +124,6 @@ exports.deletePost = async (req, res) => {
         res.status(500).json({ message: 'Error al eliminar la publicación.', error: error.message });
     }
 };
-
 
 exports.getMyPosts = async (req, res) => {
     try {

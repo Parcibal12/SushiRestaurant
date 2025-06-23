@@ -1,19 +1,15 @@
 const express = require('express');
-const router = express.Router();
-const blogController = require('../controllers/blogController');
+const { createPost, getAllPosts, getPostById, updatePost, deletePost, getMyPosts } = require('../controllers/blogController');
 const authMiddleware = require('../middleware/authMiddleware');
-const multer = require('multer');
+const upload = require('../middleware/upload');
 
-const upload = multer({ storage: multer.memoryStorage() });
+const router = express.Router();
 
-router.get('/', blogController.getAllPosts);
-router.get('/my-posts', authMiddleware, blogController.getMyPosts);
-router.get('/:id', blogController.getPostById);
-
-
-
-router.post('/', authMiddleware, upload.single('image'), blogController.createPost);
-router.put('/:id', authMiddleware, blogController.updatePost);
-router.delete('/:id', authMiddleware, blogController.deletePost);
+router.post('/', authMiddleware, upload.single('image'), createPost);
+router.get('/', getAllPosts);
+router.get('/my-posts', authMiddleware, getMyPosts);
+router.get('/:id', getPostById);
+router.put('/:id', authMiddleware, updatePost);
+router.delete('/:id', authMiddleware, deletePost);
 
 module.exports = router;

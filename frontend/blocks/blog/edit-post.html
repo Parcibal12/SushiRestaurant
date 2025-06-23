@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post - Qitchen</title>
+    
+    <link rel="stylesheet" href="create-post.css">
+    
+    <script type="module" src="/frontend/blocks/header/header.js"></script>
+    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
+    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
+</head>
+<body>
+    <div class="page-container">
+
+        <aside class="page-banner">
+            <sushi-header></sushi-header>
+            <user-actions></user-actions>
+            <h1 class="page-banner__title">Blog</h1>
+        </aside>
+
+        <main class="page-content">
+            <div class="create-post-card">
+                <header class="create-post-card__header">
+                    <span class="create-post-card__decorator"></span>
+                    <h2 class="form-container__title">Editar Artículo</h2>
+                    <span class="create-post-card__decorator"></span>
+                </header>
+
+                <form class="create-post-form" id="create-post-form">
+                    
+                    <div class="form-group">
+                        <label for="title" class="form-group__label">TITLE</label>
+                        <input type="text" id="title" name="title" class="form-group__input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image-upload" class="form-group__label">UPLOAD IMAGE</label>
+                        <div class="form-group__image-uploader" id="image-uploader">
+                            <input type="file" id="image-upload" name="image-upload" class="form-group__file-input" accept="image/*">
+                            <div class="form-group__image-preview" id="image-preview">
+                                <span class="form-group__image-icon">+</span>
+                                <span class="form-group__image-text">Click to upload</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content" class="form-group__label">CONTENT</label>
+                        <textarea id="content" name="content" class="form-group__textarea" rows="10" required></textarea>
+                    </div>
+
+                    <button type="submit" class="create-post-form__button">SAVE</button>
+
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <mobile-nav></mobile-nav>
+    <script type="module" src="edit-post.js"></script>
+</body>
+</html>

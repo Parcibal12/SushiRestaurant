@@ -14,6 +14,14 @@ const BlogPost = sequelize.define('BlogPost', {
     imageUrl: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    authorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Users',
+            key: 'id'
+        }
     }
 });
 
