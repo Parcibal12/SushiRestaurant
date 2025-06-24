@@ -1,12 +1,11 @@
-import { blogApi } from '../utils/api.js';
-
 document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('create-post-form');
     const titleInput = document.getElementById('title');
     const contentInput = document.getElementById('content');
     const imageUploaderGroup = document.getElementById('image-uploader-container')?.closest('.form-group');
+    const API_BASE_URL = 'http://localhost:3000/api';
 
-    if(imageUploaderGroup) {
+    if (imageUploaderGroup) {
         imageUploaderGroup.style.display = 'none';
     }
 
@@ -20,11 +19,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const post = await blogApi.getById(postId);
+        const response = await fetch(`${API_BASE_URL}/blog/${postId}`);
+        if (!response.ok) throw new Error('No se pudo cargar el post.');
+        const post = await response.json();
+        
         titleInput.value = post.title;
         contentInput.value = post.content;
     } catch (error) {
-        console.error('Error al cargar los datos del post:', error);
+        console.error('Error al cargar datos para editar:', error);
         alert('No se pudieron cargar los datos para editar.');
     }
 
@@ -34,14 +36,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             title: titleInput.value,
             content: contentInput.value
         };
+        const token = localStorage.getItem('sushi_token');
 
         try {
-            await blogApi.update(postId, updatedData);
-            alert('Publicación actualizada exitosamente');
+            const response = await fetch(`${API_BASE_URL}/blog/${postId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedData)
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+            alert('¡Publicación actualizada!');
             window.location.href = `blog-single.html?id=${postId}`;
         } catch (error) {
-            console.error('Error al actualizar el post:', error);
-            alert(`Error: ${error.message}`);
+            alert(`Error al actualizar: ${error.message}`);
         }
     });
 });

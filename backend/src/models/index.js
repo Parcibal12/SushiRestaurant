@@ -6,6 +6,7 @@ const Order = require('./Order');
 const OrderItem = require('./OrderItem');
 const BlogPost = require('./BlogPost');
 const Reservation = require('./Reservation');
+const Like = require('./Like');
 
 Category.hasMany(Product, {
     foreignKey: 'category_id'
@@ -20,6 +21,12 @@ Order.belongsTo(User, { foreignKey: 'userId' });
 User.hasMany(BlogPost, { foreignKey: 'authorId' });
 BlogPost.belongsTo(User, { as: 'author', foreignKey: 'authorId' });
 
+User.hasMany(Like, { foreignKey: 'userId' });
+Like.belongsTo(User, { foreignKey: 'userId' });
+
+BlogPost.hasMany(Like, { foreignKey: 'blogPostId' });
+Like.belongsTo(BlogPost, { foreignKey: 'blogPostId' });
+
 const db = {
     sequelize,
     User,
@@ -28,7 +35,8 @@ const db = {
     Order,
     OrderItem,
     BlogPost,
-    Reservation
+    Reservation,
+    Like
 };
 
 module.exports = db;

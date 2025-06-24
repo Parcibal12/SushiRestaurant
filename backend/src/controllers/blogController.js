@@ -1,10 +1,17 @@
-const { BlogPost, User } = require('../models');
+const { BlogPost, User, Like, sequelize} = require('../models');
 const supabase = require('../config/supabase');
 
 exports.getAllPosts = async (req, res) => {
     try {
         const posts = await BlogPost.findAll({
-            include: { model: User, as: 'author', attributes: ['name'] },
+            attributes: {
+                include: [[sequelize.fn("COUNT", sequelize.col("Likes.id")), "likeCount"]]
+            },
+            include: [
+                { model: User, as: 'author', attributes: ['name'] },
+                { model: Like, attributes: [] }
+            ],
+            group: ['BlogPost.id', 'author.id'],
             order: [['createdAt', 'DESC']]
         });
         res.json(posts);
@@ -44,7 +51,6 @@ exports.createPost = async (req, res) => {
         const file = req.file;
         const fileName = `${Date.now()}-${file.originalname}`;
         
-        // Lógica para subir la imagen a Supabase
         const { error: uploadError } = await supabase.storage
             .from('blog-images') 
             .upload(fileName, file.buffer, {
@@ -129,11 +135,72 @@ exports.getMyPosts = async (req, res) => {
     try {
         const posts = await BlogPost.findAll({
             where: { authorId: req.user.id },
-            include: { model: User, as: 'author', attributes: ['name'] },
+            attributes: {
+                include: [[sequelize.fn("COUNT", sequelize.col("Likes.id")), "likeCount"]]
+            },
+            include: [
+                { model: User, as: 'author', attributes: ['name'] },
+                { model: Like, attributes: [] }
+            ],
+            group: ['BlogPost.id', 'author.id'],
             order: [['createdAt', 'DESC']]
         });
         res.json(posts);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener tus publicaciones.', error: error.message });
+    }
+};
+
+exports.toggleLike = async (req, res) => {
+    const t = await sequelize.transaction();
+    try {
+        const blogPostId = req.params.id;
+        const userId = req.user.id;
+        let liked = false;
+
+        const existingLike = await Like.findOne({ where: { blogPostId, userId } });
+
+        if (existingLike) {
+            await existingLike.destroy({ transaction: t });
+            liked = false;
+        } else {
+            await Like.create({ blogPostId, userId }, { transaction: t });
+            liked = true;
+        }
+
+        const newLikeCount = await Like.count({ where: { blogPostId }, transaction: t });
+        
+        await t.commit();
+        
+        res.status(200).json({ liked, newLikeCount });
+
+    } catch (error) {
+        await t.rollback();
+        res.status(500).json({ message: 'Error al procesar el like.', error: error.message });
+    }
+};
+
+exports.getMyFavoritePosts = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const likedPosts = await BlogPost.findAll({
+            attributes: {
+                include: [[sequelize.fn("COUNT", sequelize.col("Likes.id")), "likeCount"]]
+            },
+            include: [
+                { model: User, as: 'author', attributes: ['name'] },
+                {
+                    model: Like,
+                    where: { userId },
+                    attributes: [],
+                    required: true
+                }
+            ],
+            group: ['BlogPost.id', 'author.id'],
+            order: [['createdAt', 'DESC']]
+        });
+        res.json(likedPosts);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener tus favoritos.', error: error.message });
     }
 };
