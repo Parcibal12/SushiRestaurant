@@ -34,7 +34,8 @@ function createCartItemElement(item) {
 
     const image = document.createElement('img');
     image.className = 'cart-item__image';
-    image.src = item.image || '/assets/menu/comida1.png';
+
+    image.src = item.imageUrl || '/assets/menu/comida1.png'; 
     image.alt = item.name;
 
     const detailsDiv = document.createElement('div');
@@ -44,7 +45,6 @@ function createCartItemElement(item) {
     nameH3.className = 'cart-item__name';
     nameH3.textContent = item.name;
     
-
     const descriptionP = document.createElement('p');
     descriptionP.className = 'cart-item__description';
     descriptionP.textContent = item.description;

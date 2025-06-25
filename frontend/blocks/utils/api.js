@@ -34,8 +34,10 @@ export const blogApi = {
     getMyPosts: () => request('/blog/my-posts'),
     getMyFavorites: () => request('/blog/my-favorites'),
     toggleLike: (postId) => request(`/blog/${postId}/like`, { method: 'POST' }),
+    getById: (id) => request(`/blog/${id}`),
 };
 
 export const authApi = {
     getProfile: () => request('/auth/profile'),
 };
+

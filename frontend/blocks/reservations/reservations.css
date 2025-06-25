@@ -157,3 +157,30 @@ sushi-header, user-actions {
 .hidden {
     display: none;
 }
+
+
+/* mensaje de confirmación */
+.confirmation-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.confirmation-message:empty {
+    display: none;
+}
+
+.confirmation-message.success {
+    background-color: rgba(45, 206, 137, 0.2);
+    color: #2dce89;
+}
+
+.confirmation-message.error {
+    background-color: rgba(245, 54, 92, 0.2);
+    color: #f5365c;
+}

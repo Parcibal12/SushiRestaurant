@@ -1,31 +1,30 @@
-import { menuData } from '../menu/menu-data.js';
-
 const CART_STORAGE_KEY = 'sushi_cart';
-
 
 export function getCart() {
     const cartJson = localStorage.getItem(CART_STORAGE_KEY);
     return cartJson ? JSON.parse(cartJson) : [];
 }
 
-export function addToCart(itemId) {
+function saveCart(cart) {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+}
+
+
+export function addToCart(productToAdd) {
     const cart = getCart();
-    const existingItem = cart.find(item => item.id === itemId);
+    const existingItem = cart.find(item => item.id === productToAdd.id);
 
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        const product = menuData.find(p => p.id === itemId);
-        if (product) {
-            cart.push({
-                id: product.id,
-                name: product.name,
-                price: parseFloat(product.price.replace('$', '')),
-                image: product.image,
-                description: product.description,
-                quantity: 1
-            });
-        }
+        cart.push({
+            id: productToAdd.id,
+            name: productToAdd.name,
+            price: parseFloat(productToAdd.price),
+            imageUrl: productToAdd.imageUrl,
+            description: productToAdd.description,
+            quantity: 1
+        });
     }
     saveCart(cart);
 }
@@ -58,9 +57,4 @@ export function updateCartIcon() {
             cartBadge.style.display = 'none';
         }
     }
-}
-
-
-function saveCart(cart) {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
 }

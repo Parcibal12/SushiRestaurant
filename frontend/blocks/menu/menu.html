@@ -15,16 +15,13 @@
 <body>
 
     <div class="page-container">
-
         <aside class="page-banner">
             <sushi-header></sushi-header>
             <user-actions></user-actions>
-            
             <h1 class="page-banner__title">Menu</h1>
         </aside>
 
         <main class="page-content">
-
             <div class="menu-filters">
                 <button class="menu-filters__button menu-filters__button--active" data-filter="all">All</button>
                 <button class="menu-filters__button" data-filter="maki">Maki</button>
@@ -32,312 +29,31 @@
                 <button class="menu-filters__button" data-filter="special-rolls">Special Rolls</button>
             </div>
 
-            <div class="menu-list">
-                <section class="menu-category" data-category="maki">
-                    <div class="menu-category__header">
-                        <span class="menu-category__decorator"></span>
-                        <h2 class="menu-category__title">Maki</h2>
-                        <span class="menu-category__decorator"></span>
-                    </div>
-                    
-                    <div class="menu-category__items">
-                        <a href="menu.html?item=spicy-tuna-maki" class="menu-item" data-category="maki" data-id="spicy-tuna-maki">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/comida1.png" alt="Spicy Tuna Maki">
-                                <button class="menu-item__add-btn" data-id="spicy-tuna-maki" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Spicy Tuna Maki</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$5</span>
-                                </div>
-                                <p class="menu-item__description">A tantalizing blend of spicy tuna, cucumber, and avocado, harmoniously rolled in nori and seasoned rice.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=mango-maki" class="menu-item" data-category="maki" data-id="mango-maki">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/comida2.png" alt="Mango Maki">
-                                <button class="menu-item__add-btn" data-id="mango-maki" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Mango Maki</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$5</span>
-                                </div>
-                                <p class="menu-item__description">Tempura-fried shrimp, cucumber, and cream cheese embrace a center of fresh avocado.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=salmon-maki" class="menu-item" data-category="maki" data-id="salmon-maki">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/comida3.png" alt="Salmon Maki">
-                                <button class="menu-item__add-btn" data-id="salmon-maki" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Salmon Maki</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$5</span>
-                                </div>
-                                <p class="menu-item__description">Shiitake mushrooms, avocado, and pickled daikon radish nestle within a roll of seasoned rice, coated with nutty sesame seeds.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=tuna-maki" class="menu-item" data-category="maki" data-id="tuna-maki">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu2.png" alt="Tuna Maki">
-                                <button class="menu-item__add-btn" data-id="tuna-maki" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Tuna Maki</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$5</span>
-                                </div>
-                                <p class="menu-item__description">A vibrant assortment of julienned carrots, bell peppers, and cucumber, tightly encased in a nori-wrapped rice roll.</p>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-
-                <section class="menu-category" data-category="uramaki">
-                    <div class="menu-category__header">
-                        <span class="menu-category__decorator"></span>
-                        <h2 class="menu-category__title">UraMaki</h2>
-                        <span class="menu-category__decorator"></span>
-                    </div>
-
-                    <div class="menu-category__items">
-                        <a href="menu.html?item=volcano-delight" class="menu-item" data-category="uramaki" data-id="volcano-delight">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu3.png" alt="Volcano Delight">
-                                <button class="menu-item__add-btn" data-id="volcano-delight" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Volcano Delight</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">Creamy crab salad, avocado, and cucumber rolled inside, topped with spicy tuna.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=rainbow-fusion" class="menu-item" data-category="uramaki" data-id="rainbow-fusion">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu4.png" alt="Rainbow Fusion">
-                                <button class="menu-item__add-btn" data-id="rainbow-fusion" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Rainbow Fusion</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">A colorful blend of fresh tuna, salmon, yellowtail, and avocado, enveloping a core of cucumber and crab stick.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=dragon-elegance" class="menu-item" data-category="uramaki" data-id="dragon-elegance">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu5.png" alt="Dragon Elegance">
-                                <button class="menu-item__add-btn" data-id="dragon-elegance" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Dragon Elegance</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">Grilled eel and avocado nestled within the roll, draped with slices of ripe avocado resembling dragon scales.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=sunset-serenity" class="menu-item" data-category="uramaki" data-id="sunset-serenity">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu6.png" alt="Sunset Serenity">
-                                <button class="menu-item__add-btn" data-id="sunset-serenity" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Sunset Serenity</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">Tempura shrimp, cucumber, and spicy mayo embraced by a roll of soy paper, crowned with slices of creamy mango.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=mystic-garden" class="menu-item" data-category="uramaki" data-id="mystic-garden">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu7.png" alt="Mystic Garden">
-                                <button class="menu-item__add-btn" data-id="mystic-garden" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Mystic Garden</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">Shiitake mushrooms, asparagus, and cucumber intermingle with crispy tempura bits, blanketed by a layer of sesame seeds.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=ocean-breeze" class="menu-item" data-category="uramaki" data-id="ocean-breeze">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu8.png" alt="Ocean Breeze">
-                                <button class="menu-item__add-btn" data-id="ocean-breeze" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Ocean Breeze</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">A medley of fresh shrimp, crab stick, and avocado, laced with a gentle touch of zesty yuzu-infused tobiko.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=tokyo-blossom" class="menu-item" data-category="uramaki" data-id="tokyo-blossom">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu9.png" alt="Tokyo Blossom">
-                                <button class="menu-item__add-btn" data-id="tokyo-blossom" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Tokyo Blossom</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$12</span>
-                                </div>
-                                <p class="menu-item__description">Delicate pink soy paper envelopes a blend of tuna, crab stick, and cucumber, embellished with edible flower petals.</p>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-
-                <section class="menu-category" data-category="special-rolls">
-                    <div class="menu-category__header">
-                        <span class="menu-category__decorator"></span>
-                        <h2 class="menu-category__title">Special Rolls</h2>
-                        <span class="menu-category__decorator"></span>
-                    </div>
-
-                    <div class="menu-category__items">
-                        <a href="menu.html?item=sunrise-bliss" class="menu-item" data-category="special-rolls" data-id="sunrise-bliss">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu10.png" alt="Sunrise Bliss">
-                                <button class="menu-item__add-btn" data-id="sunrise-bliss" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                               <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Sunrise Bliss</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$16</span>
-                                </div>
-                                <p class="menu-item__description">A delicate combination of fresh salmon, cream cheese, and asparagus, rolled in orange-hued tobiko for a burst of sunrise-inspired flavors.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=mango-tango-fusion" class="menu-item" data-category="special-rolls" data-id="mango-tango-fusion">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu11.png" alt="Mango Tango Fusion">
-                                <button class="menu-item__add-btn" data-id="mango-tango-fusion" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Mango Tango Fusion</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$16</span>
-                                </div>
-                                <p class="menu-item__description">Tempura shrimp, cucumber, and avocado dance alongside sweet mango slices, drizzled with a tangy mango sauce.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=truffle-indulgence" class="menu-item" data-category="special-rolls" data-id="truffle-indulgence">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu12.png" alt="Truffle Indulgence">
-                                <button class="menu-item__add-btn" data-id="truffle-indulgence" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Truffle Indulgence</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$16</span>
-                                </div>
-                                <p class="menu-item__description">Decadent slices of black truffle grace a roll of succulent wagyu beef, cucumber, and microgreens, culminating in an exquisite umami symphony.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=pacific-firecracker" class="menu-item" data-category="special-rolls" data-id="pacific-firecracker">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu13.png" alt="Pacific Firecracker">
-                                <button class="menu-item__add-btn" data-id="pacific-firecracker" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Pacific Firecracker</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$16</span>
-                                </div>
-                                <p class="menu-item__description">Spicy crab salad, tempura shrimp, and jalapeño peppers combine in a fiery ensemble, accented with a chili-infused aioli.</p>
-                            </div>
-                        </a>
-
-                        <a href="menu.html?item=eternal-eel-enchantment" class="menu-item" data-category="special-rolls" data-id="eternal-eel-enchantment">
-                            <div class="menu-item__visual-wrapper">
-                                <img class="menu-item__image" src="/assets/menu/menu14.png" alt="Eternal Eel Enchantment">
-                                <button class="menu-item__add-btn" data-id="eternal-eel-enchantment" aria-label="Añadir al carrito">
-                                    <img src="/assets/icons/add.svg" alt="Añadir al carrito">
-                                </button>
-                            </div>
-                            <div class="menu-item__info">
-                                <div class="menu-item__header">
-                                    <h3 class="menu-item__name">Eternal Eel Enchantment</h3>
-                                    <span class="menu-item__divider"></span>
-                                    <span class="menu-item__price">$16</span>
-                                </div>
-                                <p class="menu-item__description">An enchanting blend of eel tempura, foie gras, and cucumber, elegantly layered with truffle oil and gold leaf for a touch of opulence.</p>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-            </div>
+            <div class="menu-list"></div>
         </main>
     </div>
+    
     <mobile-nav></mobile-nav>
-    <script type="module" src="menu.js" defer></script>
+
+    <div class="modal-overlay" id="product-modal-overlay">
+        <div class="modal" id="product-modal">
+            <button class="modal__close-btn" id="modal-close-btn">&times;</button>
+            <div class="modal__content">
+                <div class="modal__image-container">
+                    <img src="" alt="Producto" id="modal-product-image">
+                </div>
+                <div class="modal__details">
+                    <h2 class="modal__title" id="modal-product-title"></h2>
+                    <p class="modal__description" id="modal-product-description"></p>
+                    <div class="modal__footer">
+                        <span class="modal__price" id="modal-product-price"></span>
+                        <button class="modal__add-to-cart-btn" id="modal-add-to-cart-btn">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="menu.js"></script>
 </body>
 </html>
