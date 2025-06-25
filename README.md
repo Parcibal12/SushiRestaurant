@@ -7,25 +7,24 @@ Este repositorio contiene el código fuente completo para la aplicación web de 
 
 El proyecto está organizado en 2 carpetas principales, `frontend` y `backend`, para una clara separación de responsabilidades, hay una carpeta más de assets en la que se encuentran las imágenes que se utilizaron.
 
-    ```
-├── backend/
-│   ├── src/
-│   │   ├── config/       # Configuración de la base de datos (db.js, supabase.js)
-│   │   ├── controllers/  # Lógica de negocio
-│   │   ├── middleware/   # Funciones intermedias
-│   │   ├── models/       # Definiciones de los modelos de datos con Sequelize
-│   │   ├── routes/      
-│   │   └── seeders/      # Scripts para poblar la base de datos
-│   └── .env              # (Archivo local) Variables de entorno y credenciales
-│
-└── frontend/
-├── assets/           # (Fuera de frontend) Íconos e imágenes
-├── blocks/           # Componentes de la UI (BEM), cada uno con su HTML, CSS y JS
-│   ├── auth/
-│   ├── blog/
-│   ├── cart/
-│   └── ...
-└── index.html
+    ```├── backend/
+    │   ├── src/
+    │   │   ├── config/       # Configuración de la base de datos (db.js, supabase.js)
+    │   │   ├── controllers/  # Lógica de negocio
+    │   │   ├── middleware/   # Funciones intermedias
+    │   │   ├── models/       # Definiciones de los modelos de datos con Sequelize
+    │   │   ├── routes/      
+    │   │   └── seeders/      # Scripts para poblar la base de datos
+    │   └── .env              # (Archivo local) Variables de entorno y credenciales
+    │
+    └── frontend/
+    ├── assets/           # (Fuera de frontend) Íconos e imágenes
+    ├── blocks/           # Componentes de la UI (BEM), cada uno con su HTML, CSS y JS
+    │   ├── auth/
+    │   ├── blog/
+    │   ├── cart/
+    │   └── ...
+    └── index.html
     ```
 
 ## 2. PATRONES DE DISEÑO
