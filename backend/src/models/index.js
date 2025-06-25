@@ -15,6 +15,9 @@ Product.belongsTo(Category, {
     foreignKey: 'category_id'
 });
 
+User.hasMany(Reservation, { foreignKey: 'userId' });
+Reservation.belongsTo(User, { foreignKey: 'userId' });
+
 User.hasMany(Order, { foreignKey: 'userId' });
 Order.belongsTo(User, { foreignKey: 'userId' });
 

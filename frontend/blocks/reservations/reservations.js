@@ -1,60 +1,58 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const reservationForm = document.getElementById('reservation-form');
+import { reservationsApi, authApi } from '../utils/api.js';
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const reservationForm = document.getElementById('reservation-form');
+    const nameGroup = document.getElementById('name').closest('.form-group');
+    const phoneGroup = document.getElementById('phone').closest('.form-group');
+    const emailGroup = document.getElementById('email').closest('.form-group');
     const messageContainer = document.createElement('div');
     messageContainer.className = 'confirmation-message';
-    reservationForm.after(messageContainer);
+    reservationForm.before(messageContainer);
+
+    let currentUser = null;
+
+    const token = localStorage.getItem('sushi_token');
+    if (token) {
+        try {
+            currentUser = await authApi.getProfile();
+            if (currentUser) {
+                nameGroup.style.display = 'none';
+                phoneGroup.style.display = 'none';
+                emailGroup.style.display = 'none';
+                messageContainer.textContent = `Reservando como ${currentUser.name}.`;
+                messageContainer.className = 'confirmation-message info';
+            }
+        } catch (error) {
+            console.log("Token inválido o expirado, se mostrará el formulario completo.");
+        }
+    }
 
     if (reservationForm) {
         reservationForm.addEventListener('submit', async (event) => {
             event.preventDefault();
-
             const submitButton = reservationForm.querySelector('button[type="submit"]');
             submitButton.disabled = true;
-            submitButton.textContent = 'Enviando.....';
-            messageContainer.textContent = '';
+            submitButton.textContent = 'Enviando....';
+
+            const reservationData = {
+                guest_count: parseInt(document.getElementById('guests').value, 10),
+                reservation_date: new Date(`${document.getElementById('date').value}T${document.getElementById('time').value}`)
+            };
+
+            if (!currentUser) {
+                reservationData.name = document.getElementById('name').value;
+                reservationData.contact_info = `Tel: ${document.getElementById('phone').value}, Email: ${document.getElementById('email').value}`;
+            }
 
             try {
-                const name = document.getElementById('name').value;
-                const phone = document.getElementById('phone').value;
-                const email = document.getElementById('email').value;
-                const guests = document.getElementById('guests').value;
-                const date = document.getElementById('date').value;
-                const time = document.getElementById('time').value;
-
-                const contact_info = `Tel: ${phone}, Email: ${email}`;
-                const reservation_date = new Date(`${date}T${time}`);
-
-                const reservationData = {
-                    name,
-                    contact_info,
-                    reservation_date,
-                    guest_count: parseInt(guests, 10)
-                };
-
-                const response = await fetch('http://localhost:3000/api/reservations', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(reservationData),
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'No se pudo enviar la solicitud.');
-                }
-
-                messageContainer.textContent = 'Tu solicitud ha sido enviada. Te contactaremos pronto.';
-                messageContainer.classList.add('success');
-                messageContainer.classList.remove('error');
+                await reservationsApi.create(reservationData);
+                
+                messageContainer.textContent = 'Tu solicitud ha sido enviada.';
+                messageContainer.className = 'confirmation-message success';
                 reservationForm.reset();
-
             } catch (error) {
-                console.error('Error al enviar la reserva:', error);
                 messageContainer.textContent = `Error: ${error.message}`;
-                messageContainer.classList.add('error');
-                messageContainer.classList.remove('success');
+                messageContainer.className = 'confirmation-message error';
             } finally {
                 submitButton.disabled = false;
                 submitButton.textContent = 'Reserve';

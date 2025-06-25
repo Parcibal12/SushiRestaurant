@@ -41,3 +41,9 @@ export const authApi = {
     getProfile: () => request('/auth/profile'),
 };
 
+export const reservationsApi = {
+    create: (reservationData) => request('/reservations', {
+        method: 'POST',
+        body: JSON.stringify(reservationData)
+    }),
+};

@@ -17,7 +17,17 @@ const Reservation = sequelize.define('Reservation', {
     guest_count: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+        userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'Users',
+            key: 'id'
+        }
     }
+
+    
 });
 
 module.exports = Reservation;
