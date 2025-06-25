@@ -7,6 +7,7 @@ Este repositorio contiene el código fuente completo para la aplicación web de 
 
 El proyecto está organizado en 2 carpetas principales, `frontend` y `backend`, para una clara separación de responsabilidades, hay una carpeta más de assets en la que se encuentran las imágenes que se utilizaron.
 
+    ```
 ├── backend/
 │   ├── src/
 │   │   ├── config/       # Configuración de la base de datos (db.js, supabase.js)
@@ -25,6 +26,7 @@ El proyecto está organizado en 2 carpetas principales, `frontend` y `backend`, 
 │   ├── cart/
 │   └── ...
 └── index.html
+    ```
 
 ## 2. PATRONES DE DISEÑO
 
@@ -54,8 +56,7 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
 * **Ubicación:** Se implementa implícitamente en los **Controladores** cada vez que se usa un modelo de Sequelize.
 * **Pseudo-código:**
     ```javascript
-    // El controlador usa el "Repositorio" de BlogPost para buscar todos los posts
-    // sin saber nada de SQL.
+    // El controlador usa el Repositorio de BlogPost para buscar todos los posts sin saber nada de SQL
     const posts = await BlogPost.findAll();
     ```
 
@@ -66,8 +67,7 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
 * **Ubicación:** `frontend/utils/api.js`
 * **Pseudo-código:**
     ```javascript
-    // El código principal no necesita saber cómo funciona fetch.
-    // Simplemente llama a la función de la Fachada.
+    // El código principal no necesita saber cómo funciona fetch, simplemente llama a la función de la Fachada.
     import { blogApi } from './utils/api.js';
 
     const misPosts = await blogApi.getMyPosts();
@@ -78,10 +78,10 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
 * **Ubicación:** En todo el frontend. Por ejemplo, `blog.js` importa funcionalidades desde `api.js`.
 * **Pseudo-código:**
     ```javascript
-    // En api.js
+    // api.js
     export const blogApi = { /* ... */ };
 
-    // En blog.js
+    // blog.js
     import { blogApi } from '../utils/api.js';
     ```
 
@@ -90,14 +90,12 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
 * **Ubicación:** `frontend/blocks/blog/blogComponents.js` (luego se integró en `blog.js`).
 * **Pseudo-código:**
     ```javascript
-    // La "fábrica" que construye el HTML
     function createPostCard(post) {
         const article = document.createElement('article');
         article.innerHTML = `<h3>${post.title}</h3>...`;
         return article;
     }
-
-    // Cómo se usa la fábrica
+    // Cómo se usa..
     posts.forEach(post => {
         const tarjeta = createPostCard(post);
         container.appendChild(tarjeta);
@@ -109,13 +107,13 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
 * **Ubicación:** `frontend/blocks/blog/blog.js`
 * **Pseudo-código:**
     ```javascript
-    // El Sujeto (Observable)
+    // Observer
     const LikeManager = {
         suscriptores: [],
         notificar(postId, nuevoConteo) { /* avisa a los suscriptores */ }
     };
 
-    // La Acción (Comando)
+    // Command
     class ToggleLikeCommand {
         constructor(postId) { this.postId = postId; }
         execute() {
@@ -124,7 +122,6 @@ Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad 
         }
     }
 
-    // El Invocador
     container.addEventListener('click', e => {
         if (e.target.esBotonLike) {
             const comando = new ToggleLikeCommand(id);
