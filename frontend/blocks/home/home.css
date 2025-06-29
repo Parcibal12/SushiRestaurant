@@ -1,0 +1,133 @@
+:host {
+    --color-background: #0A0B0A;
+    --color-text: #EFE7D2;
+    --color-border: rgba(239, 231, 210, 0.15);
+    --font-heading: 'Forum', serif;
+    --font-body: 'ABeeZee', sans-serif;
+    
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    box-sizing: border-box;
+}
+
+.main-content {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 420px;
+    grid-template-rows: 1fr;
+    grid-template-areas: "hero sidebar";
+}
+
+.hero-section {
+    grid-area: hero;
+    position: relative;
+    overflow: hidden;
+    background: url('../../../assets/frontpage/Image.png') no-repeat center center;
+    background-size: cover;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, black 100%);
+    opacity: 0.60;
+}
+
+.hero-text {
+    position: absolute;
+    z-index: 2;
+    left: 77px;
+    bottom: 10%;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: 3px;
+    color: var(--color-text);
+}
+
+.hero-text h1, .hero-text h2 {
+    margin: 0;
+}
+
+.hero-text h1 {
+    font-size: clamp(70px, 10vw, 140px);
+}
+
+.hero-text h2 {
+    font-size: clamp(50px, 8vw, 100px);
+}
+
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    border-left: 1px solid var(--color-border);
+    overflow-y: auto;
+}
+
+.sidebar__item {
+    flex: 1;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.sidebar__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+}
+
+.sidebar__item:hover .sidebar__image {
+    transform: scale(1.1);
+}
+
+.sidebar__overlay {
+    position: absolute;
+    bottom: 10%;
+    right: 0;
+    padding: 12px 24px;
+    background-color: var(--color-background);
+    border-top-left-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 15px 0;
+}
+
+.social-icons a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--color-text-secondary);
+}

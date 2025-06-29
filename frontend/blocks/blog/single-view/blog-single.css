@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Forum&family=ABeeZee&family=Actor&display=swap');
-
-:root {
+:host {
     --color-background: #0A0B0A;
     --color-text: #EFE7D2;
     --color-text-secondary: rgba(245, 242, 234, 0.70);
@@ -9,24 +7,17 @@
     --font-heading: 'Forum', serif;
     --font-body: 'Actor', sans-serif;
     --font-meta: 'ABeeZee', sans-serif;
-}
 
-
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-background);
-    color: var(--color-text);
+    display: block;
     font-family: var(--font-body);
-    overflow: hidden;
+    color: var(--color-text);
+    background-color: var(--color-background);
 }
 
 .page-container {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 .page-banner {
@@ -48,18 +39,12 @@ body, html {
     z-index: 1;
 }
 
-sushi-header, user-actions {
-    position: relative;
-    z-index: 10;
-}
-
 .page-content {
     flex: 1;
     padding: 80px 96px;
     overflow-y: auto;
     border-left: 1px solid var(--color-border);
 }
-
 
 .blog-post {
     display: flex;
@@ -68,7 +53,6 @@ sushi-header, user-actions {
     max-width: 650px;
     margin: 0 auto;
 }
-
 
 .blog-post__header {
     display: flex;
@@ -102,7 +86,6 @@ sushi-header, user-actions {
     width: 60px;
 }
 
-
 .blog-post__title {
     font-family: var(--font-heading);
     font-size: clamp(40px, 5vw, 64px);
@@ -113,42 +96,17 @@ sushi-header, user-actions {
 }
 
 .blog-post__body {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-}
-
-.blog-post__section {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.blog-post__subtitle {
-    font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 400;
-    text-transform: uppercase;
-    line-height: 1;
-    margin: 0;
-}
-
-.blog-post__body p {
     font-size: 16px;
     line-height: 1.8;
     color: var(--color-text-secondary);
     text-align: justify;
-    margin: 0;
-}
-
-.blog-post__body p + p {
-    margin-top: 1em;
 }
 
 .blog-post__footer {
     padding-top: 24px;
     border-top: 1px solid var(--color-border);
 }
+
 .author-name {
     font-family: var(--font-meta);
     font-size: 14px;

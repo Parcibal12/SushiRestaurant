@@ -1,0 +1,15 @@
+{
+  "name": "sushi-restaurant-monorepo",
+  "version": "1.0.0",
+  "description": "Proyecto de restaurante de sushi",
+  "main": "index.js",
+  "scripts": {
+    "dev:frontend": "vite",
+    "dev:backend": "npm run dev --prefix backend"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.3.3"
+  }
+}
