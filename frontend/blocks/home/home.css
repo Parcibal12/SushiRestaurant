@@ -85,6 +85,7 @@
     border-radius: 16px;
     text-decoration: none;
     color: var(--color-text);
+    min-height: 150px; /* Le damos una altura mínima para que no colapse */
 }
 
 .sidebar__image {
@@ -130,4 +131,37 @@
 
 .social-icons a:hover {
     color: var(--color-text-secondary);
+}
+
+
+
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "hero"
+            "sidebar";
+        overflow-y: auto;
+    }
+
+    .hero-section {
+        min-height: 60vh;
+    }
+
+    .sidebar {
+        border-left: none;
+        height: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-text {
+        left: 24px;
+        bottom: 24px;
+    }
+
+    .sidebar {
+        padding: 24px;
+    }
 }

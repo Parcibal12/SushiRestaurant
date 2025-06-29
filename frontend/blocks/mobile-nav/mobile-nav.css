@@ -97,3 +97,15 @@
 .mobile-nav__link:hover::after {
     transform: scaleX(1);
 }
+
+@media (max-width: 480px) {
+    .mobile-nav__link {
+        font-size: 48px;
+    }
+
+    .mobile-nav__close-btn {
+        top: 24px;
+        right: 24px;
+        font-size: 40px;
+    }
+}

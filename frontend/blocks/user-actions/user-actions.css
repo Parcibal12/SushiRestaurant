@@ -18,3 +18,15 @@
 .user-actions__link:hover {
     transform: scale(1.05);
 }
+
+@media (max-width: 480px) {
+    .user-actions {
+        padding: 15px;
+        gap: 4px;
+    }
+
+    .user-actions__icon {
+        width: 40px;
+        height: 40px;
+    }
+}
