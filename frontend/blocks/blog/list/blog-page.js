@@ -1,3 +1,4 @@
+import { LikeEventManager } from '../../../services/LikeEventManager.js';
 class BlogPage extends HTMLElement {
     constructor() {
         super();
@@ -8,14 +9,12 @@ class BlogPage extends HTMLElement {
         
         this.handleFilterClick = this.handleFilterClick.bind(this);
         this.handlePostActions = this.handlePostActions.bind(this);
+        this._unsubscribeFunctions = []; 
     }
-
 
     async connectedCallback() {
         const css = await fetch('/frontend/blocks/blog/list/blog.css').then(res => res.text());
         const template = await fetch('/frontend/blocks/blog/list/blog.html').then(res => res.text());
-
-        this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
 
         this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
         
@@ -25,8 +24,10 @@ class BlogPage extends HTMLElement {
     disconnectedCallback() {
         this.shadowRoot.querySelector('.blog-filters').removeEventListener('click', this.handleFilterClick);
         this.shadowRoot.querySelector('.post-list').removeEventListener('click', this.handlePostActions);
+        
+        this._unsubscribeFunctions.forEach(unsubscribe => unsubscribe());
+        this._unsubscribeFunctions = [];
     }
-
 
     async initializePage() {
         const token = localStorage.getItem('sushi_token');
@@ -42,6 +43,9 @@ class BlogPage extends HTMLElement {
         
         this.shadowRoot.querySelectorAll('.blog-filters__link').forEach(link => link.addEventListener('click', this.handleFilterClick));
         this.shadowRoot.querySelector('.post-list').addEventListener('click', this.handlePostActions);
+
+        const unsubscribeFromLikes = LikeEventManager.subscribe(this.handleLikeUpdateEvent.bind(this));
+        this._unsubscribeFunctions.push(unsubscribeFromLikes);
 
         this.shadowRoot.querySelector('.blog-filters__link[data-filter="all"]').click();
     }
@@ -110,10 +114,28 @@ class BlogPage extends HTMLElement {
                 
                 if (!response.ok) throw new Error(result.message);
 
-                const likeCountSpan = postCard.querySelector('.like-count');
-                likeCountSpan.textContent = `${result.newLikeCount} Likes`;
-                likeButton.classList.toggle('liked', result.liked);
+                LikeEventManager.publish({
+                    postId: postId,
+                    newLikeCount: result.newLikeCount,
+                    liked: result.liked
+                });
+
             } catch (error) { alert(`Error: ${error.message}`); }
+        }
+    }
+
+    handleLikeUpdateEvent(eventData) {
+        const postCard = this.shadowRoot.querySelector(`.post-card[data-post-id="${eventData.postId}"]`);
+        if (postCard) {
+            const likeCountSpan = postCard.querySelector('.like-count');
+            const likeButton = postCard.querySelector('.like-btn');
+            
+            if (likeCountSpan) {
+                likeCountSpan.textContent = `${eventData.newLikeCount} Likes`;
+            }
+            if (likeButton) {
+                likeButton.classList.toggle('liked', eventData.liked);
+            }
         }
     }
 
@@ -153,6 +175,8 @@ class BlogPage extends HTMLElement {
                 </button>
             `;
         }
+        
+        const isLikedClass = post.likedByUser ? 'liked' : '';
 
         const postDate = new Date(post.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
 
@@ -160,7 +184,7 @@ class BlogPage extends HTMLElement {
             <article class="post-card" data-post-id="${post.id}">
                 <div class="post-card__image-wrapper">
                     <div class="post-card__actions">
-                        <button class="post-card__action-btn like-btn" title="Me Gusta">
+                        <button class="post-card__action-btn like-btn ${isLikedClass}" title="Me Gusta">
                             <img src="${likeIconUrl}" alt="Me Gusta">
                         </button>
                         ${ownerActionsHtml}
