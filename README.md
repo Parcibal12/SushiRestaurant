@@ -26,108 +26,186 @@ El proyecto está organizado en 2 carpetas principales, `frontend` y `backend`, 
     │   └── ...
     └── index.html
     ```
-
 ## 2. PATRONES DE DISEÑO
 
-Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad y escalabilidad del código.
+Se implementaron patrones de diseño para mejorar la estructura, mantenibilidad y escalabilidad del código, siguiendo las mejores prácticas para una aplicación web moderna.
 
-### Patrones backend
+### Patrones Frontend
+
+#### a) Patrón Componente
+* **Qué hace?** Permite crear tus propias etiquetas HTML personalizadas que encapsulan su propio HTML, CSS y JavaScript, funcionando como unidades autocontenidas y reutilizables.
+* **Para qué sirve?** Para modularizar la interfaz de usuario. Manteniendo el código organizado y fácil de mantener.
+* **Por qué lo implementamos?** Para organizar la interfaz de usuario en bloques pequeños y manejables, reducir la repetición de código y asegurar que cada parte de la UI sea independiente y fácil de actualizar.
+* **Dónde lo implementamos?** En la mayoría de los archivos JS dentro de la carpeta `frontend/blocks/`.
+* **Pseudo-código (Ejemplo en user-actions.js):**
+    ```
+    // Definición
+    class UserActions extends HTMLElement {
+        constructor() {
+            super();
+            this.attachShadow({ mode: 'open' }); // Encapsula el componente
+            // Carga HTML y CSS, luego inicia la lógica
+            // ...
+        }
+        // ... métodos como updateAuthStatus para la lógica del componente
+    }
+    customElements.define('user-actions', UserActions); // Registra el componente para usarlo en HTML
+    ```
+
+#### b) Patrón Router 
+* **Qué hace?** Gestiona la navegación interna de la SPA utilizando la parte "hash" de la URL.
+* **Para qué sirve?** Para crear una experiencia de usuario fluida y rápida, sin recargar la página completa al cambiar de página.
+* **Por qué lo implementamos?** Para proporcionar una navegación rápida y sin interrupciones, mejorando la experiencia del usuario.
+* **Dónde lo implementamos** En el archivo `frontend/services/router.js`.
+* **Pseudo-código:**
+    ```
+    const routes = {
+        '/': 'home-page',
+        '/blog/:id': 'blog-post-view'
+    };
+
+    const handleLocation = async () => {
+        const path = window.location.hash.substring(1) || '/';
+        let componentTag = routes[path] || 'home-page';
+        // ... 
+        const pageComponent = document.createElement(componentTag);
+        document.getElementById('app-root').innerHTML = '';
+        document.getElementById('app-root').appendChild(pageComponent);
+    };
+
+    window.addEventListener('hashchange', handleLocation);
+    window.addEventListener('DOMContentLoaded', handleLocation);
+    ```
+
+#### c) Patrón Fachada
+* **Qué hace?** Proporciona una interfaz simplificada y unificada para interactuar con un subsistema más complejo la API.
+* **Para qué sirve?** Sirve para reducir la complejidad en los componentes del frontend al interactuar con el backend. Centraliza la lógica común de comunicación (como añadir tokens de autenticación, configurar encabezados, manejar respuestas y errores).
+* **Por qué lo implementamos?** Para evitar la repetición de código de las llamadas `fetch` y sus configuraciones en cada componente.
+* **Dónde lo implementamos?** `frontend/services/api-service.js`.
+* **Pseudo-código:**
+    ```
+    // api-service.js
+    const getAuthHeaders = () => {..};
+    export const ApiService = {
+        async getProfile() {
+            const response = await fetch('/api/auth/profile', { headers: getAuthHeaders() });
+            return response.json();
+        },
+        async likeBlogPost(postId) {
+            const response = await fetch(`/api/blog/${postId}/like`, { method: 'POST', headers: getAuthHeaders() });
+            return response.json();
+        }
+    };
+
+    // Uso en un componente
+    import { ApiService } from '../../services/api-service.js';
+    const userProfile = await ApiService.getProfile();
+    const likeResult = await ApiService.likeBlogPost(postId);
+    ```
+
+
+#### d) Patrón Observer
+* **Qué hace?** Permite que un objeto ("publicador" o "sujeto") notifique automáticamente a otros objetos ("suscriptores") sobre cambios en su estado, sin que los suscriptores necesiten revisar constantemente ese estado o tener una dependencia directa con el publicador.
+* **Para qué sirve?** Sirve para desacoplar la lógica que inicia un cambio de la lógica que reacciona a ese cambio, ideal para sincronizar estados en la interfaz de usuario donde un cambio en un lugar necesita ser reflejado en múltiples otros lugares.
+* **Por qué lo implementamos?** Para gestionar la actualización del contador de likes de los posts. Cuando un like cambia, el LikeEventManager (publicador) emite un evento, y BlogPage (suscriptor) lo escucha para actualizar la UI de las tarjetas de posts.
+* **Dónde lo implementamos?** `frontend/services/LikeEventManager.js` (el publicador) y en `frontend/blocks/blog/list/blog-page.js` (suscriptor).
+* **Pseudo-código:**
+    ```
+    const listeners = [];
+    export const LikeEventManager = {
+        subscribe: (callback) => { listeners.push(callback); /* ... */ },
+        publish: (eventData) => { listeners.forEach(callback => callback(eventData)); }
+    };
+
+    // blog-page.js
+    import { LikeEventManager } from '../../../services/LikeEventManager.js';
+
+    class BlogPage extends HTMLElement {
+        connectedCallback() {
+            // ..
+            LikeEventManager.subscribe(this.handleLikeUpdateEvent.bind(this));
+        }
+
+        async handlePostActions(event) {
+            // Lógica para llamar a la API de like
+            LikeEventManager.publish({ postId: postId, newLikeCount: result.newLikeCount, liked: result.liked });
+        }
+
+        handleLikeUpdateEvent(eventData) {
+            const postCard = this.shadowRoot.querySelector(`.post-card[data-post-id="${eventData.postId}"]`);
+            if (postCard) { /* .. */ }
+        }
+    }
+    ```
+
+### Patrones Backend
 
 #### a) Patrón MVC
-* **Justificación:** Separa la lógica de datos Modelo, la lógica de negocio Controlador y la representación de los datos, haciendo el código más limpio y fácil de mantener.
-* **Ubicación:**
-    * **Modelos:** Carpeta `backend/src/models/` (ej: `User.js`, `Product.js`).
-    * **Vistas:** Las respuestas **JSON** generadas por los controladores (ej: `res.json(...)`).
-    * **Controladores:** Carpeta `backend/src/controllers/` (ej: `blogController.js`).
+* **Qué hace?** Divide la aplicación en tres componentes principales:
+    * **Modelos:** Representan los datos y la lógica de negocio asociada.
+    * **Vistas:** Se encargan de la presentación de los datos.
+    * **Controladores:** Manejan las peticiones del cliente, interactúan con los Modelos para obtener/manipular datos, y preparan la respuesta.
+* **Para qué sirve?** Sirve para separar las responsabilidades del código.
+* **Por qué lo implementamos?** Para estructurar el backend de la API RESTful de una manera clara y estándar.
+* **Dónde lo implementamos?**
+    * **Modelos:** `backend/src/models/`
+    * **Vistas:** `backend/src/routes/`
+    * **Controladores:**`backend/src/controllers/`
+    * Se orquesta en `backend/src/server.js`.
 * **Pseudo-código:**
-    ```javascript
-    // Controlador (recibe la petición)
-    exports.getPost = async (req, res) => {
-        // Habla con el Modelo para obtener datos
-        const post = await BlogPost.findByPk(req.params.id);
-        // Envía la Vista (JSON)
+    ```
+    // Controlador blogController.js
+    const BlogPost = require('../models/BlogPost'); // Modelo
+
+    exports.getPostById = async (req, res) => { // Controlador recibe la petición
+        const postId = req.params.id;
+        const post = await BlogPost.findByPk(postId); // Interactúa con el modelo
+        if (!post) {
+            return res.status(404).json({ message: 'Publicación no encontrada.' });
+        }
         res.json(post);
     }
     ```
 
-#### b) Patrón Repository
-* **Justificación:** Abstrae el acceso a la base de datos. En lugar de escribir SQL crudo, interactuamos con objetos que representan nuestras tablas. Esto se logra a través del ORM **Sequelize**.
-* **Ubicación:** Se implementa implícitamente en los **Controladores** cada vez que se usa un modelo de Sequelize.
+#### b) Patrón repositorio
+* **Qué hace?** Abstrae la lógica de acceso a datos, en lugar de escribir consultas de base de datos directamente, la aplicación interactúa con "colecciones" de objetos (los modelos de Sequelize) que se encargan de los detalles de la comunicación con la base de datos.
+* **Para qué sirve?** Sirve para desacoplar la lógica de negocio de los detalles específicos de la base de datos.
+* **¿Dónde lo implementamos?** Principalmente en los archivos de tus **Modelos** en `backend/src/models/`  y en cómo los **Controladores**los utilizan para realizar operaciones de base de datos.
 * **Pseudo-código:**
-    ```javascript
-    // El controlador usa el Repositorio de BlogPost para buscar todos los posts sin saber nada de SQL
-    const posts = await BlogPost.findAll();
     ```
+    const BlogPost = require('../models/BlogPost'); 
 
-### Patrones frontend
-
-#### a) Patrón Fachada
-* **Justificación:** Se implementó para simplificar la comunicación con el backend, oculta la complejidad de las llamadas `fetch` (configuración de `headers`, `body`, token de autorización, etc.).
-* **Ubicación:** `frontend/utils/api.js`
-* **Pseudo-código:**
-    ```javascript
-    // El código principal no necesita saber cómo funciona fetch, simplemente llama a la función de la Fachada.
-    import { blogApi } from './utils/api.js';
-
-    const misPosts = await blogApi.getMyPosts();
-    ```
-
-#### b) Patrón Módulo
-* **Justificación:** Para organizar el código en piezas lógicas y reutilizables, evitando un único archivo gigante. Cada archivo tiene una responsabilidad única y solo expone lo necesario mediante `export`.
-* **Ubicación:** En todo el frontend. Por ejemplo, `blog.js` importa funcionalidades desde `api.js`.
-* **Pseudo-código:**
-    ```javascript
-    // api.js
-    export const blogApi = { /* ... */ };
-
-    // blog.js
-    import { blogApi } from '../utils/api.js';
-    ```
-
-#### c) Patrón Factory
-* **Justificación:** Se utilizó para centralizar y simplificar la creación de elementos DOM complejos, como las tarjetas de los posts del blog, esto desacopla la lógica principal de la estructura del HTML.
-* **Ubicación:** `frontend/blocks/blog/blogComponents.js` (luego se integró en `blog.js`).
-* **Pseudo-código:**
-    ```javascript
-    function createPostCard(post) {
-        const article = document.createElement('article');
-        article.innerHTML = `<h3>${post.title}</h3>...`;
-        return article;
+    exports.getAllPosts = async (req, res) => {
+        const posts = await BlogPost.findAll();
+        res.json(posts);
     }
-    // Cómo se usa..
-    posts.forEach(post => {
-        const tarjeta = createPostCard(post);
-        container.appendChild(tarjeta);
-    });
     ```
 
-#### d) Patrón Observer y Command
-* **Justificación:** Se implementaron juntos para manejar la funcionalidad de "Likes". El Observer permite que la interfaz (el contador de likes) se actualice automáticamente cuando el estado cambia, sin que los componentes se conozcan entre sí. El Command encapsula la acción de "dar like" en un objeto, manteniendo el código del manejador de eventos limpio y simple.
-* **Ubicación:** `frontend/blocks/blog/blog.js`
+#### c) Patrón Middleware
+* **Qué hace?** Son funciones que tienen acceso a la petición (`req`), la respuesta (`res`) y a la siguiente función en el ciclo de petición/respuesta de Express.
+* **Para qué sirve?** Sirve para realizar tareas comunes y transversales a múltiples rutas de forma modular y organizada.
+* **Por qué lo implementamos?** Para añadir funcionalidades como la autenticación o el manejo de cuerpos JSON a las peticiones HTTP de forma modular y reutilizable en tu aplicación Express, sin duplicar código en cada controlador.
+* **Dónde lo implementamos?** `backend/src/middleware/` . Se "usan" o "aplican" en los archivos de **rutas** donde authMiddleware protege las rutas y en el archivo principal del servidor server.js.
 * **Pseudo-código:**
-    ```javascript
-    // Observer
-    const LikeManager = {
-        suscriptores: [],
-        notificar(postId, nuevoConteo) { /* avisa a los suscriptores */ }
+    ```
+    const jwt = require('jsonwebtoken');
+    module.exports = function(req, res, next) {
+        const token = req.header('Authorization');
+        if (!token) return res.status(401).json({ message: 'Acceso denegado.' });
+        try {
+            const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
+            req.user = decoded.user;
+            next(); // Pasa la petición
+        } catch (error) {
+            res.status(401).json({ message: 'Token no válido.' });
+        }
     };
 
-    // Command
-    class ToggleLikeCommand {
-        constructor(postId) { this.postId = postId; }
-        execute() {
-            // Llama a la API...
-            // Llama a LikeManager.notificar(...);
-        }
-    }
-
-    container.addEventListener('click', e => {
-        if (e.target.esBotonLike) {
-            const comando = new ToggleLikeCommand(id);
-            comando.execute();
-        }
-    });
+    const authMiddleware = require('../middleware/authMiddleware');
+    router.post('/', authMiddleware, blogController.createPost); // La petición pasa primero por authMiddleware
     ```
+
+---
 ---
 ## 3. BASE DE DATOS (Esquema)
 
