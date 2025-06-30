@@ -7,64 +7,45 @@ class CreatePostForm extends HTMLElement {
     }
 
     async connectedCallback() {
-        const css = await fetch('/frontend/blocks/blog/create-form/create-post.css').then(res => res.text());
-        const template = await fetch('/frontend/blocks/blog/create-form/create-post.html').then(res => res.text());
+        const css = await fetch('blocks/blog/create-form/create-post.css').then(res => res.text());
+        const template = await fetch('blocks/blog/create-form/create-post.html').then(res => res.text());
+        
         this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
-
         this.addEventListeners();
     }
 
     addEventListeners() {
         const form = this.shadowRoot.getElementById('create-post-form');
-        const imageUploader = this.shadowRoot.getElementById('image-uploader');
-        const imageInput = this.shadowRoot.getElementById('image-upload');
-        
-        form.addEventListener('submit', this.handleSubmit);
-        imageUploader.addEventListener('click', () => imageInput.click());
-        imageInput.addEventListener('change', this.previewImage.bind(this));
-    }
-    
-    previewImage(event) {
-        const imageInput = event.target;
-        const imagePreviewContainer = this.shadowRoot.getElementById('image-preview');
-        const file = imageInput.files[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreviewContainer.innerHTML = `<img src="${e.target.result}" alt="Vista previa de la imagen">`;
-            };
-            reader.readAsDataURL(file);
+        if (form) {
+            form.addEventListener('submit', this.handleSubmit);
         }
     }
-
+    
     async handleSubmit(event) {
         event.preventDefault();
 
         const title = this.shadowRoot.getElementById('title').value;
         const content = this.shadowRoot.getElementById('content').value;
-        const imageFile = this.shadowRoot.getElementById('image-upload').files[0];
         const token = localStorage.getItem('sushi_token');
 
-        if (!title || !content || !imageFile) {
-            return alert('Todos los campos, incluida la imagen, son obligatorios.');
+        if (!title || !content) {
+            return alert('El título y el contenido son obligatorios.');
         }
         if (!token) {
             alert('Debes iniciar sesión para crear una publicación.');
-
             return;
         }
 
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('image', imageFile);
+        const postData = { title, content };
 
         try {
             const response = await fetch(`${this.API_BASE_URL}/blog`, {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` },
-                body: formData,
+                headers: { 
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData),
             });
 
             if (!response.ok) {
@@ -73,12 +54,9 @@ class CreatePostForm extends HTMLElement {
             }
 
             alert('¡Publicación creada con éxito!');
+            
 
-            event.target.reset();
-            this.shadowRoot.getElementById('image-preview').innerHTML = `
-                <span class="form-group__image-icon">+</span>
-                <span class="form-group__image-text">Click to upload</span>
-            `;
+            window.location.hash = '#/blog';
 
         } catch (error) {
             alert(error.message);
@@ -88,7 +66,9 @@ class CreatePostForm extends HTMLElement {
     
     disconnectedCallback() {
         const form = this.shadowRoot.getElementById('create-post-form');
-        if(form) form.removeEventListener('submit', this.handleSubmit);
+        if (form) {
+            form.removeEventListener('submit', this.handleSubmit);
+        }
     }
 }
 

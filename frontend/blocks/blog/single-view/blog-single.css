@@ -114,3 +114,23 @@
     color: var(--color-text-author);
     margin: 0;
 }
+
+@media (max-width: 1024px) {
+    .page-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .page-banner {
+        flex: 0 0 300px;
+    }
+
+    .page-content {
+        border-left: none;
+        padding: 48px 24px;
+    }
+
+    .blog-post {
+        gap: 48px;
+    }
+}

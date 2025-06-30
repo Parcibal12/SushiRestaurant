@@ -193,3 +193,25 @@
 .create-post-form__button:hover {
     opacity: 0.9;
 }
+
+@media (max-width: 1024px) {
+    .page-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .page-banner {
+        flex: 0 0 200px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .page-banner__title {
+        font-size: 64px;
+    }
+
+    .page-content {
+        padding: 64px 24px;
+        align-items: center;
+    }
+}

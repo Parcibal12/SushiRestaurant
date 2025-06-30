@@ -1,73 +1,52 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Qitchen</title>
-    
-    <link rel="stylesheet" href="about.css"> 
-    
-    <script type="module" src="/frontend/blocks/header/header.js"></script>
-    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
-    
-    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+<div class="page-container">
 
-    <div class="page-container">
+    <aside class="page-banner">
+        <h1 class="page-banner__title">About</h1>
+    </aside>
 
-        <aside class="page-banner">
-            <sushi-header></sushi-header>
-            
-            <h1 class="page-banner__title">About</h1>
-        </aside>
+    <main class="page-content">
 
-        <main class="page-content">
+        <div class="about-row">
+            <section class="info-card info-card--text">
+                <h2 class="info-card__title">Sushi Artistry Redefined</h2>
+                <p class="info-card__description">Where culinary craftsmanship meets modern elegance. Indulge in the finest sushi, expertly curated to elevate your dining experience.</p>
+            </section>
+            <section class="info-card info-card--image" id="about-image-1"></section>
+        </div>
 
-            <div class="about-row">
-                <section class="info-card info-card--text">
-                    <h2 class="info-card__title">Sushi Artistry Redefined</h2>
-                    <p class="info-card__description">Where culinary craftsmanship meets modern elegance. Indulge in the finest sushi, expertly curated to elevate your dining experience.</p>
-                </section>
-                <section class="info-card info-card--image" id="about-image-1"></section>
-            </div>
+        <div class="about-row">
+            <article class="award-card">
+                <div class="award-card__stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <h3 class="award-card__title">Trip Advisor</h3>
+                <p class="award-card__subtitle">Best Steak House<br>Prague</p>
+            </article>
+            <article class="award-card">
+                <div class="award-card__stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <h3 class="award-card__title">Michelin Guide</h3>
+                <p class="award-card__subtitle">Best Steak House<br>Prague</p>
+            </article>
+            <article class="award-card">
+                <div class="award-card__stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <h3 class="award-card__title">Star Dining</h3>
+                <p class="award-card__subtitle">Best Steak House<br>Prague</p>
+            </article>
+        </div>
 
-            <div class="about-row">
-                <article class="award-card">
-                    <div class="award-card__stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="award-card__title">Trip Advisor</h3>
-                    <p class="award-card__subtitle">Best Steak House<br>Prague</p>
-                </article>
-                <article class="award-card">
-                    <div class="award-card__stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="award-card__title">Michelin Guide</h3>
-                    <p class="award-card__subtitle">Best Steak House<br>Prague</p>
-                </article>
-                <article class="award-card">
-                    <div class="award-card__stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <h3 class="award-card__title">Star Dining</h3>
-                    <p class="award-card__subtitle">Best Steak House<br>Prague</p>
-                </article>
-            </div>
-
-            <div class="about-row">
-                <section class="info-card info-card--image" id="about-image-2"></section>
-                <section class="info-card info-card--text">
-                    <div class="decorated-title">
-                        <h2 class="decorated-title__text">Our Story</h2>
-                    </div>
-                    <p class="info-card__description">Founded with a passion for culinary excellence, Qitchen's journey began in the heart of Prague. Over years, it evolved into a haven for sushi enthusiasts, celebrated for its artful mastery and devotion to redefining gastronomy.</p>
-                </section>
-            </div>
-            
-        </main>
-    </div>
-
-    <mobile-nav></mobile-nav> </body>
-</html>
+        <div class="about-row">
+            <section class="info-card info-card--image" id="about-image-2"></section>
+            <section class="info-card info-card--text">
+                <div class="decorated-title">
+                    <h2 class="decorated-title__text">Our Story</h2>
+                </div>
+                <p class="info-card__description">Founded with a passion for culinary excellence, Qitchen's journey began in the heart of Prague. Over years, it evolved into a haven for sushi enthusiasts, celebrated for its artful mastery and devotion to redefining gastronomy.</p>
+            </section>
+        </div>
+        
+    </main>
+</div>

@@ -1,6 +1,12 @@
-const { BlogPost, User, Like, sequelize} = require('../models');
-const supabase = require('../config/supabase');
+const { BlogPost, User, Like, sequelize } = require('../models');
 
+const DEFAULT_POST_IMAGES = [
+    '/assets/blog/blog1.png',
+    '/assets/blog/blog2.png',
+    '/assets/blog/blog3.png',
+    '/assets/blog/blog4.png',
+    '/assets/blog/blog5.png'
+];
 exports.getAllPosts = async (req, res) => {
     try {
         const posts = await BlogPost.findAll({
@@ -44,41 +50,26 @@ exports.createPost = async (req, res) => {
             return res.status(400).json({ message: 'Ya existe una publicación con ese título.' });
         }
 
-        if (!req.file) {
-            return res.status(400).json({ message: 'La imagen de portada es requerida.' });
-        }
 
-        const file = req.file;
-        const fileName = `${Date.now()}-${file.originalname}`;
+        const randomIndex = Math.floor(Math.random() * DEFAULT_POST_IMAGES.length);
         
-        const { error: uploadError } = await supabase.storage
-            .from('blog-images') 
-            .upload(fileName, file.buffer, {
-                contentType: file.mimetype,
-            });
-
-        if (uploadError) {
-            throw new Error(`Error al subir la imagen a Supabase: ${uploadError.message}`);
-        }
-        
-        const { data: publicUrlData } = supabase.storage
-            .from('blog-images')
-            .getPublicUrl(fileName);
+        const randomImageUrl = DEFAULT_POST_IMAGES[randomIndex];
 
         const newPost = await BlogPost.create({
             title,
             content,
             authorId,
-            imageUrl: publicUrlData.publicUrl
+            imageUrl: randomImageUrl
         });
         
         res.status(201).json(newPost);
 
     } catch (error) {
-        console.error("ERROR DETALLADO EN BACKEND:", error);
+        console.error("ERROR EN BACKEND (createPost):", error);
         res.status(400).json({ message: 'Error al crear la publicación.', error: error.message });
     }
 };
+
 
 
 

@@ -1,60 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Forum&family=ABeeZee&family=Actor&display=swap');
 
-:root {
+:host {
+
     --color-background: #0A0B0A;
     --color-text: #EFE7D2;
     --color-text-secondary: rgba(245, 242, 234, 0.70);
     --color-border: rgba(239, 231, 210, 0.15);
     --color-button-active-bg: #EFE7D2;
     --color-button-active-text: #0F1111;
-    
     --font-heading: 'Forum', serif;
     --font-body: 'Actor', sans-serif;
     --font-alt: 'ABeeZee', sans-serif;
-}
 
-
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    display: block;
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-body);
-    overflow: hidden;
 }
+
 
 .page-container {
     display: grid;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "header content"
-        "banner content";
+    grid-template-rows: 1fr;
+    grid-template-areas: "banner content";
 }
 
 .page-banner {
-    grid-area: banner;
+    flex: 1;
+    position: relative;
     background: url('/assets/menu/Image(1).png') no-repeat center center;
     background-size: cover;
+    
+
     display: flex;
     align-items: flex-end;
     padding: 60px;
-    position: relative;
-}
-
-sushi-header {
-    position: absolute;
-    top: 48px;
-    left: 48px;
-}
-user-actions {
-    position: absolute;
-    top: 48px;
-    right: 48px;
 }
 
 .page-banner__title {
@@ -63,6 +45,7 @@ user-actions {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin: 0;
 }
 
 .page-content {
@@ -73,7 +56,6 @@ user-actions {
     flex-direction: column;
     gap: 64px;
 }
-
 
 .menu-filters {
     display: flex;
@@ -144,10 +126,9 @@ user-actions {
     display: flex;
     align-items: center;
     gap: 24px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 
 .menu-item__image {
@@ -201,32 +182,6 @@ user-actions {
     margin: 0;
 }
 
-
-
-.icon-link i {
-    font-family: "Font Awesome 6 Free"; 
-
-    font-weight: 900; 
-}
-
-
-.menu-item.hidden {
-    display: none;
-}
-
-.menu-item {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.menu-item.hiding {
-    opacity: 0;
-    transform: scale(0.95);
-}
-
-
 .menu-item__visual-wrapper {
     position: relative;
     display: block;
@@ -236,12 +191,10 @@ user-actions {
     position: absolute;
     bottom: -6px;
     left: -6px;
-
     width: 28px;
     height: 28px;
-    
     background-color: var(--color-background);
-    border: 0.5px solid var(--color-border-dark, #4E4C47);
+    border: 0.5px solid #4E4C47;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -264,12 +217,10 @@ user-actions {
 }
 
 .menu-item__add-btn:hover img {
-
     filter: invert(1);
 }
 
-
-/* estilos detalle de prodcuto*/
+/* Estilos del Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -364,11 +315,10 @@ user-actions {
 .modal__price {
     font-family: var(--font-heading);
     font-size: 2rem;
-    color: var(--color-primary);
 }
 
 .modal__add-to-cart-btn {
-    background-color: var(--color-primary);
+    background-color: var(--color-text);
     color: var(--color-background);
     border: none;
     padding: 0.75rem 1.5rem;

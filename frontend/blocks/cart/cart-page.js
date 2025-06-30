@@ -1,111 +1,94 @@
-import { getCart, removeFromCart, updateQuantity } from '../utils/cart.js';
+import { getCart, removeFromCart, updateQuantity, updateCartIcon } from '../utils/cart.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderCartPage();
-});
-
-function renderCartPage() {
-    const cart = getCart();
-    const cartListContainer = document.querySelector('.cart-items-list');
-    const cartSummaryContainer = document.querySelector('.cart-summary');
-    
-    cartListContainer.innerHTML = '';
-
-    if (cart.length === 0) {
-        cartListContainer.innerHTML = '<p style="text-align: center; padding: 2rem 0;">Tu carrito está vacío.</p>';
-        cartSummaryContainer.style.display = 'none';
-        return;
+class CartPage extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
     }
 
-    cartSummaryContainer.style.display = 'block';
+    connectedCallback() {
+        this.render();
+    }
 
-    cart.forEach(item => {
-        const cartItemElement = createCartItemElement(item);
-        cartListContainer.appendChild(cartItemElement);
-    });
+    async render() {
+        const css = await fetch('/frontend/blocks/cart/cart.css').then(res => res.text());
+        const template = await fetch('/frontend/blocks/cart/cart.html').then(res => res.text());
+        this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
 
-    updateCartSummary();
-}
+        this.renderCartContent();
+    }
 
-function createCartItemElement(item) {
-    const article = document.createElement('article');
-    article.className = 'cart-item';
-    article.dataset.id = item.id;
+    renderCartContent() {
+        const cart = getCart();
+        const cartListContainer = this.shadowRoot.querySelector('.cart-items-list');
+        const cartSummaryContainer = this.shadowRoot.querySelector('.cart-summary');
 
-    const image = document.createElement('img');
-    image.className = 'cart-item__image';
+        cartListContainer.innerHTML = '';
 
-    image.src = item.imageUrl || '/assets/menu/comida1.png'; 
-    image.alt = item.name;
-
-    const detailsDiv = document.createElement('div');
-    detailsDiv.className = 'cart-item__details';
-
-    const nameH3 = document.createElement('h3');
-    nameH3.className = 'cart-item__name';
-    nameH3.textContent = item.name;
-    
-    const descriptionP = document.createElement('p');
-    descriptionP.className = 'cart-item__description';
-    descriptionP.textContent = item.description;
-
-    const quantityDiv = document.createElement('div');
-    quantityDiv.className = 'cart-item__quantity';
-
-    const quantityInput = document.createElement('input');
-    quantityInput.className = 'quantity-input';
-    quantityInput.type = 'number';
-    quantityInput.value = item.quantity;
-    quantityInput.min = '1';
-
-    const priceDiv = document.createElement('div');
-    priceDiv.className = 'cart-item__price';
-    priceDiv.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
-
-    const removeButton = document.createElement('button');
-    removeButton.className = 'cart-item__remove-btn';
-    removeButton.setAttribute('aria-label', 'Remove item');
-    removeButton.textContent = '×';
-
-    removeButton.addEventListener('click', () => {
-        removeFromCart(item.id);
-        renderCartPage();
-    });
-
-    quantityInput.addEventListener('change', (event) => {
-        const newQuantity = parseInt(event.target.value, 10);
-        if (newQuantity > 0) {
-            updateQuantity(item.id, newQuantity);
-        } else {
-            removeFromCart(item.id);
+        if (cart.length === 0) {
+            cartListContainer.innerHTML = '<p style="text-align: center; padding: 2rem 0;">Tu carrito está vacío.</p>';
+            cartSummaryContainer.style.display = 'none';
+            return;
         }
-        renderCartPage();
-    });
 
-    detailsDiv.appendChild(nameH3);
-    detailsDiv.appendChild(descriptionP); 
+        cartSummaryContainer.style.display = 'flex';
+
+        cart.forEach(item => {
+            cartListContainer.innerHTML += this.createCartItemHTML(item);
+        });
+        
+        this.addEventListenersToItems();
+        this.updateCartSummary();
+    }
     
-    quantityDiv.appendChild(quantityInput);
-    
-    article.appendChild(image);
-    article.appendChild(detailsDiv);
-    article.appendChild(quantityDiv);
-    article.appendChild(priceDiv);
-    article.appendChild(removeButton);
+    addEventListenersToItems() {
+        this.shadowRoot.querySelectorAll('.cart-item').forEach(itemElement => {
+            const id = itemElement.dataset.id;
+            itemElement.querySelector('.cart-item__remove-btn').addEventListener('click', () => {
+                removeFromCart(id);
+                updateCartIcon();
+                this.renderCartContent();
+            });
+            itemElement.querySelector('.quantity-input').addEventListener('change', (event) => {
+                const newQuantity = parseInt(event.target.value, 10);
+                if (newQuantity > 0) {
+                    updateQuantity(id, newQuantity);
+                } else {
+                    removeFromCart(id);
+                }
+                updateCartIcon();
+                this.renderCartContent();
+            });
+        });
+    }
 
-    return article;
-}
+    createCartItemHTML(item) {
+        return `
+            <article class="cart-item" data-id="${item.id}">
+                <img class="cart-item__image" src="${item.imageUrl || '/assets/menu/comida1.png'}" alt="${item.name}">
+                <div class="cart-item__details">
+                    <h3 class="cart-item__name">${item.name}</h3>
+                    <p class="cart-item__description">${item.description}</p>
+                </div>
+                <div class="cart-item__quantity">
+                    <input class="quantity-input" type="number" value="${item.quantity}" min="1">
+                </div>
+                <div class="cart-item__price">$${(item.price * item.quantity).toFixed(2)}</div>
+                <button class="cart-item__remove-btn" aria-label="Remove item">&times;</button>
+            </article>
+        `;
+    }
 
-function updateCartSummary() {
-    const cart = getCart();
-    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const taxes = subtotal * 0.08;
-    const total = subtotal + taxes;
+    updateCartSummary() {
+        const cart = getCart();
+        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        const taxes = subtotal * 0.08;
+        const total = subtotal + taxes;
 
-    const summaryValues = document.querySelectorAll('.summary-row__value');
-    if (summaryValues.length === 3) {
-        summaryValues[0].textContent = `$${subtotal.toFixed(2)}`;
-        summaryValues[1].textContent = `$${taxes.toFixed(2)}`;
-        summaryValues[2].textContent = `$${total.toFixed(2)}`;
+        this.shadowRoot.getElementById('subtotal-value').textContent = `$${subtotal.toFixed(2)}`;
+        this.shadowRoot.getElementById('taxes-value').textContent = `$${taxes.toFixed(2)}`;
+        this.shadowRoot.getElementById('total-value').textContent = `$${total.toFixed(2)}`;
     }
 }
+
+customElements.define('cart-page', CartPage);

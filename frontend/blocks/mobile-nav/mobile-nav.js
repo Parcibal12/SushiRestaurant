@@ -3,32 +3,38 @@ class MobileNav extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.isOpen = false;
-
-        Promise.all([
-            fetch('/frontend/blocks/mobile-nav/mobile-nav.html').then(res => res.text()),
-            fetch('/frontend/blocks/mobile-nav/mobile-nav.css').then(res => res.text())
-        ]).then(([html, css]) => {
-            this.shadowRoot.innerHTML = `<style>${css}</style>${html}`;
-            this.navElement = this.shadowRoot.querySelector('.mobile-nav');
-            this.shadowRoot.querySelector('.mobile-nav__close-btn').addEventListener('click', () => this.toggle());
-        }).catch(error => console.error('Error:', error));
     }
 
-    connectedCallback() {
-        document.addEventListener('toggleMobileMenu', () => this.toggle());
+    async connectedCallback() {
+        const css = await fetch('/frontend/blocks/mobile-nav/mobile-nav.css').then(res => res.text());
+        const template = await fetch('/frontend/blocks/mobile-nav/mobile-nav.html').then(res => res.text());
+
+        this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
+        
+        this.addEventListeners();
     }
 
-    disconnectedCallback() {
-        document.removeEventListener('toggleMobileMenu', () => this.toggle());
+    addEventListeners() {
+        const closeButton = this.shadowRoot.querySelector('.mobile-nav__close-btn');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => this.toggle(false));
+        }
+
+        const links = this.shadowRoot.querySelectorAll('.mobile-nav__link');
+        links.forEach(link => {
+            link.addEventListener('click', () => this.toggle(false));
+        });
     }
-    
-    toggle() {
-        this.isOpen = !this.isOpen;
-        if (this.isOpen) {
-            this.navElement.classList.add('is-open');
-        } else {
-            this.navElement.classList.remove('is-open');
+
+    toggle(forceState) {
+        this.isOpen = (forceState !== undefined) ? forceState : !this.isOpen;
+        
+        const mobileNavElement = this.shadowRoot.querySelector('.mobile-nav');
+        if (mobileNavElement) {
+
+            mobileNavElement.classList.toggle('is-open', this.isOpen);
         }
     }
 }
+
 customElements.define('mobile-nav', MobileNav);

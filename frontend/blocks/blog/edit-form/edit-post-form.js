@@ -21,8 +21,11 @@ class EditPostForm extends HTMLElement {
 
     async connectedCallback() {
         this.postId = this.getAttribute('post-id');
-        const css = await fetch('/frontend/blocks/blog/create-form/create-post.css').then(res => res.text());
-        const template = await fetch('/frontend/blocks/blog/edit-form/edit-post-form.html').then(res => res.text());
+        
+
+        const css = await fetch('blocks/blog/create-form/create-post.css').then(res => res.text());
+        const template = await fetch('blocks/blog/edit-form/edit-post-form.html').then(res => res.text());
+        
         this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
 
         if (this.postId) {
@@ -35,7 +38,9 @@ class EditPostForm extends HTMLElement {
     
     addEventListeners() {
         const form = this.shadowRoot.getElementById('edit-post-form');
-        form.addEventListener('submit', this.handleSubmit);
+        if (form) {
+            form.addEventListener('submit', this.handleSubmit);
+        }
     }
 
     async loadPostData() {
@@ -44,10 +49,14 @@ class EditPostForm extends HTMLElement {
             if (!response.ok) throw new Error('No se pudo cargar la información del post.');
             const post = await response.json();
 
-            this.shadowRoot.getElementById('post-banner-image').src = post.imageUrl;
-
             this.shadowRoot.getElementById('title').value = post.title;
             this.shadowRoot.getElementById('content').value = post.content;
+            
+            const bannerImg = this.shadowRoot.getElementById('post-banner-image');
+            if (bannerImg) {
+                bannerImg.src = post.imageUrl || '/assets/blog/blog-default.png';
+            }
+
         } catch (error) {
             console.error('Error al cargar datos para editar:', error);
             alert('No se pudieron cargar los datos del post.');
@@ -77,7 +86,10 @@ class EditPostForm extends HTMLElement {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Error al actualizar el post.');
             }
-            alert('Publicación actualizada con éxito');
+            alert('¡Publicación actualizada con éxito!');
+
+            window.location.hash = '#/blog';
+
         } catch (error) {
             alert(`Error al actualizar: ${error.message}`);
         }

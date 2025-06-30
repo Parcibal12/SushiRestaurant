@@ -1,59 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú - Qitchen</title>
-    
-    <link rel="stylesheet" href="menu.css"> 
-    
-    <script type="module" src="/frontend/blocks/header/header.js"></script>
-    <script type="module" src="/frontend/blocks/user-actions/user-actions.js"></script>
-    <script type="module" src="/frontend/blocks/mobile-nav/mobile-nav.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+<div class="page-container">
+    <aside class="page-banner">
+        <h1 class="page-banner__title">Menu</h1>
+    </aside>
+    <main class="page-content">
+        <div class="menu-filters">
+            <button class="menu-filters__button menu-filters__button--active" data-filter="all">All</button>
+            <button class="menu-filters__button" data-filter="maki">Maki</button>
+            <button class="menu-filters__button" data-filter="uramaki">UraMaki</button>
+            <button class="menu-filters__button" data-filter="special-rolls">Special Rolls</button>
+        </div>
+        <div class="menu-list"></div>
+    </main>
+</div>
 
-    <div class="page-container">
-        <aside class="page-banner">
-            <sushi-header></sushi-header>
-            <user-actions></user-actions>
-            <h1 class="page-banner__title">Menu</h1>
-        </aside>
-
-        <main class="page-content">
-            <div class="menu-filters">
-                <button class="menu-filters__button menu-filters__button--active" data-filter="all">All</button>
-                <button class="menu-filters__button" data-filter="maki">Maki</button>
-                <button class="menu-filters__button" data-filter="uramaki">UraMaki</button>
-                <button class="menu-filters__button" data-filter="special-rolls">Special Rolls</button>
+<div class="modal-overlay" id="product-modal-overlay">
+    <div class="modal" id="product-modal">
+        <button class="modal__close-btn" id="modal-close-btn">&times;</button>
+        <div class="modal__content">
+            <div class="modal__image-container">
+                <img src="" alt="Producto" id="modal-product-image">
             </div>
-
-            <div class="menu-list"></div>
-        </main>
-    </div>
-    
-    <mobile-nav></mobile-nav>
-
-    <div class="modal-overlay" id="product-modal-overlay">
-        <div class="modal" id="product-modal">
-            <button class="modal__close-btn" id="modal-close-btn">&times;</button>
-            <div class="modal__content">
-                <div class="modal__image-container">
-                    <img src="" alt="Producto" id="modal-product-image">
-                </div>
-                <div class="modal__details">
-                    <h2 class="modal__title" id="modal-product-title"></h2>
-                    <p class="modal__description" id="modal-product-description"></p>
-                    <div class="modal__footer">
-                        <span class="modal__price" id="modal-product-price"></span>
-                        <button class="modal__add-to-cart-btn" id="modal-add-to-cart-btn">Añadir al Carrito</button>
-                    </div>
+            <div class="modal__details">
+                <h2 class="modal__title" id="modal-product-title"></h2>
+                <p class="modal__description" id="modal-product-description"></p>
+                <div class="modal__footer">
+                    <span class="modal__price" id="modal-product-price"></span>
+                    <button class="modal__add-to-cart-btn" id="modal-add-to-cart-btn">Añadir al Carrito</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script type="module" src="menu.js"></script>
-</body>
-</html>
+</div>
