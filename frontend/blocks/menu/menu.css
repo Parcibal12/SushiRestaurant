@@ -1,6 +1,4 @@
-
 :host {
-
     --color-background: #0A0B0A;
     --color-text: #EFE7D2;
     --color-text-secondary: rgba(245, 242, 234, 0.70);
@@ -32,11 +30,6 @@
     position: relative;
     background: url('/assets/menu/Image(1).png') no-repeat center center;
     background-size: cover;
-    
-
-    display: flex;
-    align-items: flex-end;
-    padding: 60px;
 }
 
 .page-banner__title {
@@ -55,6 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 64px;
+
 }
 
 .menu-filters {
@@ -88,6 +82,9 @@
     display: flex;
     flex-direction: column;
     gap: 96px;
+    flex: 1;
+    min-height: 0;
+
 }
 
 .menu-category {
@@ -120,6 +117,7 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+
 }
 
 .menu-item {
@@ -220,7 +218,6 @@
     filter: invert(1);
 }
 
-/* Estilos del Modal */
 .modal-overlay {
     position: fixed;
     top: 0;

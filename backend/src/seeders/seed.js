@@ -10,13 +10,13 @@ const categoryMap = {
 const seedDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log('Conexión establecida, iniciando seeder...');
+        console.log('Conexión establecida');
 
         await sequelize.sync({ alter: true });
-        console.log('Modelos sincronizados. Las tablas están listas.');
+        console.log('Modelos sincronizados Las tablas están listas');
 
 
-        console.log('Limpiando tablas de productos y categorías...');
+        console.log('Limpiando tablas de productos y categorías');
         await Product.destroy({ where: {}, truncate: true, cascade: true });
         await Category.destroy({ where: {}, truncate: true, cascade: true });
         console.log('Tablas limpiadas.');
@@ -33,9 +33,19 @@ const seedDatabase = async () => {
             return acc;
         }, {});
 
+        console.log('[Seeder Debug] Categorías cargadas por nombre:', categoriesByName);
+        console.log('[Seeder Debug] Número total de productos en menuData:', menuData.length);
+
         const productPromises = menuData.map(product => {
-            const categoryName = categoryMap[product.category];
-            const category_id = categoriesByName[categoryName];
+            const categoryNameForProduct = product.category;
+            const category_id = categoriesByName[categoryNameForProduct];
+
+            if (!category_id) {
+                console.warn(`[Seeder Debug] Categoría no encontrada para el producto "${product.name}" (${categoryNameForProduct}). Este producto será omitido.`); // Log más detallado
+                return null;
+            }
+
+            console.log(`[Seeder Debug] Creando producto: ${product.name} con category_id: ${category_id}`);
 
             return Product.create({
                 name: product.name,
@@ -44,9 +54,14 @@ const seedDatabase = async () => {
                 imageUrl: product.image,
                 category_id: category_id
             });
-        });
+        }).filter(p => p !== null);
+
+
         await Promise.all(productPromises);
         console.log('Productos creados exitosamente.');
+
+        const finalProductCount = await Product.count();
+        console.log(`[Seeder Debug] Número FINAL de productos en la tabla Products: ${finalProductCount}`);
 
         console.log('completado');
 
