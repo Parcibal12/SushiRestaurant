@@ -298,3 +298,6 @@ Las dependencias específicas del proyecto (como Express, Sequelize, etc.) está
 
 ## 8. Link al Figma
 https://www.figma.com/design/h0oMWdLowNGfgjJXKEnkMN/web-app-exam-1--Copy-?node-id=0-1&t=zBMnpto3W9jC7Ulp-1
+
+
+## Documento-defensa: https://docs.google.com/document/d/1m-xTO4YaFuU-afLMi9rXy0nmQ6Zvxn1sCBWeyKWdZQk/edit?usp=sharing
