@@ -1,20 +1,30 @@
 class AboutPage extends HTMLElement {
-    constructor() {
+    constructor(){
         super();
         this.attachShadow({ mode: 'open' });
+
+        const styles = document.createElement("style");
+        this.shadowRoot.appendChild(styles);
+
+        async function loadCSS() {
+            const request = await fetch('/frontend/blocks/about/about.css');
+            const css = await request.text();
+            styles.textContent = css;
+        }
+        loadCSS();
     }
 
-    async connectedCallback() {
-        const html = await fetch('/frontend/blocks/about/about.html').then(res => res.text());
-        const css = await fetch('/frontend/blocks/about/about.css').then(res => res.text());
+    connectedCallback(){
+        const contentContainer = document.createElement('div');
+        this.shadowRoot.appendChild(contentContainer);
+
+        fetch('/frontend/blocks/about/about.html')
+            .then(res => res.text())
+            .then(html => {
+                contentContainer.innerHTML = html;
+            })
 
 
-        this.shadowRoot.innerHTML = `
-            <style>
-                ${css}
-            </style>
-            ${html}
-        `;
     }
 }
 

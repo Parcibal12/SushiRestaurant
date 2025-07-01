@@ -1,14 +1,28 @@
 class ContactPage extends HTMLElement {
-    constructor() {
+    constructor(){
         super();
         this.attachShadow({ mode: 'open' });
+
+        const styles = document.createElement("style");
+        this.shadowRoot.appendChild(styles);
+
+        async function loadCSS() {
+            const request = await fetch('/frontend/blocks/contact/contact.css');
+            const css = await request.text();
+            styles.textContent = css;
+        }
+        loadCSS();
     }
 
-    async connectedCallback() {
-        const css = await fetch('/frontend/blocks/contact/contact.css').then(res => res.text());
-        const template = await fetch('/frontend/blocks/contact/contact.html').then(res => res.text());
+    connectedCallback(){
+        const contentContainer = document.createElement('div');
+        this.shadowRoot.appendChild(contentContainer);
 
-        this.shadowRoot.innerHTML = `<style>${css}</style>${template}`;
+        fetch('/frontend/blocks/contact/contact.html')
+            .then(res => res.text())
+            .then(html => {
+                contentContainer.innerHTML = html;
+            })
     }
 }
 
