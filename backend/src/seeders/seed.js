@@ -37,11 +37,18 @@ const seedDatabase = async () => {
         console.log('[Seeder Debug] Número total de productos en menuData:', menuData.length);
 
         const productPromises = menuData.map(product => {
-            const categoryNameForProduct = product.category;
-            const category_id = categoriesByName[categoryNameForProduct];
+            // --- INICIO DE LA CORRECCIÓN ---
+
+            // 1. Traduce la categoría del producto (ej: 'maki') al nombre correcto (ej: 'Maki') usando tu mapa.
+            const properCategoryName = categoryMap[product.category];
+
+            // 2. Ahora, busca el ID usando el nombre correcto.
+            const category_id = categoriesByName[properCategoryName];
+
+            // --- FIN DE LA CORRECCIÓN ---
 
             if (!category_id) {
-                console.warn(`[Seeder Debug] Categoría no encontrada para el producto "${product.name}" (${categoryNameForProduct}). Este producto será omitido.`); // Log más detallado
+                console.warn(`[Seeder Debug] Categoría no encontrada para el producto "${product.name}" (${product.category}). Este producto será omitido.`);
                 return null;
             }
 
